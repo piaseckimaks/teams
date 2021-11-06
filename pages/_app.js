@@ -31,6 +31,7 @@ function MyApp({ Component, pageProps }) {
       
       if(response.status === 200){
         console.log('fetched')
+        
         Router.push('/')
       }
       else{

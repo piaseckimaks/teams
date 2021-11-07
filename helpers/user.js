@@ -14,20 +14,13 @@ const connection = mysql.createConnection({
   database : process.env.DB_NAME
 });
  
-connection.connect();
- 
-connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
-  if (error) throw error;
-  console.log('The solution is: ', results[0].solution);
-});
- 
-connection.end();
+
 
 const users = [
     
 ]
 
-export async function createUser({ username, password }) {
+export async function createUser({ email, password }) {
   // Here you should create the user and save the salt and hashed password (some dbs may have
   // authentication methods that will do it for you so you don't have to worry about it):
   const salt = crypto.randomBytes(16).toString('hex')
@@ -35,15 +28,23 @@ export async function createUser({ username, password }) {
     .pbkdf2Sync(password, salt, 1000, 64, 'sha512')
     .toString('hex')
   const user = {
-    id: uuidv4(),
     createdAt: Date.now(),
-    username,
+    email,
     hash,
     salt,
   }
 
   // This is an in memory store for users, there is no data persistence without a proper DB
   users.push(user)
+
+  connection.connect();
+ 
+  connection.query('SELECT 1 + 1 AS solution', function (error, results, fields) {
+    if (error) throw error;
+    console.log('The solution is: ', results[0].solution);
+  });
+  
+  connection.end();
 
   return { username, createdAt: Date.now() }
 }

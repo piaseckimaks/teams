@@ -5,6 +5,6 @@ import Form from '../components/Form'
 export default function signin({handleLogin}) {
 
   return (
-    <Form handleLogin={handleLogin} isSignForm={true}  />
+    <Form handleLogin={handleLogin} isSignForm />
   )
 }

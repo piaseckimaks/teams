@@ -20,13 +20,13 @@ const users = [
   {
     id: 'fdc6c3c8-3dc8-4a92-ad64-02b7bc2d040d',
     createdAt: 1636547315283,
-    email: 'maksym@piasecki.xyz',
+    username: 'maksym@piasecki.xyz',
     hash: 'da65481d4b41420726d524f207cc6836c39ae6d193f0c269ac5bccc9a65b4d9b905a2e686a8834b0870919f070f7ce877d8adffb78f045c7cfb165aef065a23f',
     salt: '3f4a1301fc31263ef53a708feafc6308'
   }
 ]
 
-export async function createUser({ email, password }) {
+export async function createUser({ username, password }) {
   // Here you should create the user and save the salt and hashed password (some dbs may have
   // authentication methods that will do it for you so you don't have to worry about it):
   const salt = crypto.randomBytes(16).toString('hex')
@@ -36,7 +36,7 @@ export async function createUser({ email, password }) {
   const user = {
     id: uuidv4(),
     createdAt: Date.now(),
-    email,
+    username,
     hash,
     salt,
   }
@@ -55,14 +55,14 @@ export async function createUser({ email, password }) {
 
   console.log(users)
 
-  return { email, createdAt: Date.now() }
+  return { username, createdAt: Date.now() }
 }
 
 // Here you should lookup for the user in your DB
-export async function findUser({ email }) {
-    
+export async function findUser({ username }) {
+    console.log('from /user/findUser', username)
   // This is an in memory store for users, there is no data persistence without a proper DB
-  return users.find((user) => user.email === email)
+  return users.find((user) => user.username === username)
 }
 
 // Compare the password of an already fetched user (using `findUser`) and compare the

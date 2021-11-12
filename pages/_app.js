@@ -3,8 +3,8 @@ import { useState } from 'react'
 import '../styles/globals.css'
 import { useUser } from '../hooks/useUser'
 
-function MyApp({ Component, pageProps }) {
-  const user = useUser()
+export default function MyApp({ Component, pageProps }) {
+  // const user = useUser()
   const [ errorMsg, setErrorMsg] = useState(null)
 
   async function handleRegistration(e){
@@ -86,7 +86,7 @@ function MyApp({ Component, pageProps }) {
     }  
   }
 
-  pageProps = {...pageProps, user, handleLogin, handleRegistration}
+  pageProps = {...pageProps, handleLogin, handleRegistration}
   return (
     <div>
       <Component {...pageProps} />
@@ -97,4 +97,4 @@ function MyApp({ Component, pageProps }) {
 
 
 
-export default MyApp
+

@@ -13,8 +13,9 @@ export async function makeSession(res, sessionData){
 }
 
 export async function getSession(req){
+    console.log('cookies from session:', req.cookies)
     const token = getTokenCookie(req)
-
+    console.log('token from /helpers/session:', token)
     if(!token) return
 
     const sessionData = Iron.unseal(token, TOKEN_SECRET, Iron.defaults)

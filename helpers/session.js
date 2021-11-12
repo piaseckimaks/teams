@@ -18,11 +18,12 @@ export async function getSession(req){
     console.log('token from /helpers/session:', token)
     if(!token) return
 
-    const sessionData = Iron.unseal(token, TOKEN_SECRET, Iron.defaults)
+    const sessionData = await Iron.unseal(token, TOKEN_SECRET, Iron.defaults)
     const dtExpires = sessionData.dtCreated + sessionData.maxAge * 1000
 
     if(Date.now() > dtExpires)
         throw new Error('Session expired!')
 
+    console.log('session data: ',sessionData)
     return sessionData
 }

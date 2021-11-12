@@ -4,6 +4,7 @@ import { findUser } from '../../../helpers/user'
 export default async function user(req, res) {
   try {
     const session = await getSession(req)
+    
     const user = (session && (await findUser(session))) ?? null
     console.log('from /auth/user',user)
     res.status(200).json({ user })

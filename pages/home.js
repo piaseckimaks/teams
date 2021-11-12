@@ -199,7 +199,7 @@ export default function Home({handleSubmit, user}) {
             {/* Replace with your content */}
             <div className="px-4 py-6 sm:px-0">
               <div className="border-4 border-dashed border-gray-200 rounded-lg h-96" >
-                <p className="capitalize">Welcome {user?.username}</p>
+                <p className="capitalize">Welcome {user?.firstname + ' ' + user?.lastname}</p>
               </div>
             </div>
             {/* /End replace */}
@@ -215,7 +215,7 @@ export async function getServerSideProps({ req }){
   // for(let key in req)
   //   console.log(key)
 
-  console.log(req.client)
+  // console.log(req.client)
   try {
     const session = await getSession(req)
     const user = (session && (await findUser(session))) ?? null
@@ -224,7 +224,7 @@ export async function getServerSideProps({ req }){
     // res.status(200).json({ user })
 
     if(user)
-      return { props: { user: {...user}, } }
+      return { props: { user: {id: user.id, firstname: user.firstname, lastname: user.lastname,} } }
 
     return { props: {user: 'not found'}}
 

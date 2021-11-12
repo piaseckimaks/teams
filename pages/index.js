@@ -41,21 +41,13 @@ export default function Index() {
 
     return (
         <>
-        <div className="relative bg-white overflow-hidden border">
+        <div className="relative bg-white overflow-hidden">
         <div className="mx-auto">
-          <div className="relative z-10 pb-8 bg-white sm:pb-12 md:pb-16 lg:max-w-5xl lg:w-full lg:pb-20 ">
-            <svg
-              className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2"
-              fill="currentColor"
-              viewBox="0 0 100 100"
-              preserveAspectRatio="none"
-              aria-hidden="true"
-            >
-              <polygon points="50,0 100,0 50,100 0,100" />
-            </svg>
+          <div className="relative z-10 pb-8 bg-white sm:pb-12 md:pb-16  xl:max-w-5xl lg:w-full lg:pb-20 ">
+            
   
             <Popover>
-              <div className="relative pt-6 px-4 sm:px-6 lg:px-8">
+              <div className="relative pt-6 px-4 sm:px-6 lg:px-8 ">
                 <nav className="relative flex items-center justify-between sm:h-10 lg:justify-start" aria-label="Global">
                   <div className="flex items-center flex-grow flex-shrink-0 lg:flex-grow-0">
                     <div className="flex items-center justify-between w-full md:w-auto">
@@ -140,8 +132,9 @@ export default function Index() {
               </Transition>
             </Popover>
   
+
             <main className="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-              <div className="sm:text-center lg:text-left">
+              <div className="sm:text-center xl:text-left">
                 <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
                   <span className="block xl:inline">Data to enrich your</span>{' '}
                   <span className="block text-indigo-600 xl:inline">online business</span>
@@ -170,6 +163,15 @@ export default function Index() {
                 </div>
               </div>
             </main>
+            <svg
+              className="hidden lg:block absolute right-0 inset-y-0 h-full text-white transform translate-x-1/2"
+              fill="currentColor"
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <polygon points="50,0 100,0 50,100 0,100" />
+            </svg>
           </div>
         </div>
         <div className="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2">

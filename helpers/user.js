@@ -23,6 +23,12 @@ const users = [
     username: 'maksym@piasecki.xyz',
     hash: 'da65481d4b41420726d524f207cc6836c39ae6d193f0c269ac5bccc9a65b4d9b905a2e686a8834b0870919f070f7ce877d8adffb78f045c7cfb165aef065a23f',
     salt: '3f4a1301fc31263ef53a708feafc6308'
+  },{
+    id: '33e95629-c961-4b06-8997-0d7532190d4a',
+    createdAt: 1636716308391,
+    username: 'piaseckimaks94@gmail.com',
+    hash: 'a24ae75c6e139f3fcea21f2b8a1fc3f330e98afd2de4f4e1da0c0016bf38987497ece5a74dea71f7eed158e880e1e38762f34d130af0a4fa091e86c3224f11fe',
+    salt: '9ac5b17ec6b3439f4abbc49cd1af776e'
   }
 ]
 
@@ -61,6 +67,7 @@ export async function createUser({ username, password }) {
 // Here you should lookup for the user in your DB
 export async function findUser({ username }) {
     console.log('from /user/findUser', username)
+   users.forEach((user) => {console.log(user.username) })
   // This is an in memory store for users, there is no data persistence without a proper DB
   return users.find((user) => user.username === username)
 }

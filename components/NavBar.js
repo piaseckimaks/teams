@@ -16,7 +16,8 @@ export default function NavBar({ handleUserBtn }) {
         <div className={`absolute sm:fixed top-0 navbar mx-auto shadow-md bg-base-200 text-neutral-content w-full z-10`}>
         
         <div className="px-2 mx-2 navbar-start">
-            <a href="#section0">
+            <Link href="/">
+            <a>
             <span className="text-3xl font-semibold text-secondary-content ">
                 crew
             </span>
@@ -24,6 +25,7 @@ export default function NavBar({ handleUserBtn }) {
                 IT
             </span>
             </a>
+            </Link>
         </div> 
         <div className="hidden px-2 mx-2 navbar-center lg:flex">
             <div className="flex items-stretch">

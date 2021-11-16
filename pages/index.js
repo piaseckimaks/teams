@@ -25,7 +25,7 @@ const sections = [
   {
     name: 'Intro',
     content: (
-        <div className="hero h-full w-full mx-auto bg-fixed" style={{backgroundImage: 'url("https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")'}} >
+        <div className="hero h-full w-full mx-auto bg-fixed " style={{backgroundImage: 'url("https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")'}} >
           <div className="hero-overlay bg-opacity-40"></div> 
           <div className="text-center hero-content text-neutral-content">
             <div className="max-w-md">
@@ -50,7 +50,7 @@ const sections = [
   {
     name: 'Features',
     content: (
-      <div className="hero h-full w-full mx-auto bg-base-200">
+      <div className="hero h-full w-full mx-auto bg-base-200  ">
         
         <div className="text-center flex flex-col hero-content text-neutral-content">
           <h1 className="text-5xl my-10 uppercase">core features</h1>
@@ -58,9 +58,9 @@ const sections = [
 
           {
             features.map((e,i)=>(
-              <div className="card mx-5 text-center shadow-2xl bg-gradient-to-r from-accent-focus to-accent transform hover:cursor-pointer hover:scale-110 transition duration-300" key={i}>
-                <figure className="px-10 pt-10 h-64">
-                  <img src={e.svg} className="rounded-xl"/>
+              <div className="card glass mx-5 text-center shadow-2xl h-96 transform hover:cursor-pointer hover:scale-110 transition duration-300" key={i}>
+                <figure className="px-10 pt-10 h-48">
+                  <img src={e.svg} className="rounded-xl h-44"/>
                 </figure> 
                 <div className="card-body">
                   <h2 className="card-title">shadow, center, padding</h2> 
@@ -158,7 +158,7 @@ export default function Index({ user}) {
         <NavBar />
         {
           sections.map((e,i)=>(
-            <section className="w-screen h-screen relative" id={'section'+i} key={i}>
+            <section className=" h-screen relative " id={'section'+i} key={i}>
               { e.content }
             </section>
           ))

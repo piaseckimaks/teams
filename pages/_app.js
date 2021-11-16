@@ -8,7 +8,7 @@ export default function MyApp({ Component, pageProps }) {
   const [ errorMsg, setErrorMsg] = useState(null)
   
   return (
-    <div className="bg-base-100" data-theme="">
+    <div className="" data-theme="dark">
       <Component {...pageProps} />
     </div>
   )

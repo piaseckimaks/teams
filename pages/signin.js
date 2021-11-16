@@ -5,6 +5,7 @@ import useSWR from 'swr'
 import Router from 'next/router'
 import Modal from '../components/Modal'
 import { useState } from 'react'
+import NavBar from '../components/NavBar'
 
 
 export default function Signin() {
@@ -45,9 +46,10 @@ export default function Signin() {
   }
 
   return (
-    <>
+    <div className="h-screen">
+      <NavBar />
       <Form handleLogin={handleLogin} isSignForm />
       <Modal message={errorMessage}/>
-    </>    
+    </div>    
   )
 }

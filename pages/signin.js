@@ -47,7 +47,7 @@ export default function Signin() {
 
   return (
     <div className="h-screen">
-      <NavBar />
+      {/* <NavBar /> */}
       <Form handleLogin={handleLogin} isSignForm />
       <Modal message={errorMessage}/>
     </div>    

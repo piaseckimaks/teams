@@ -2,12 +2,8 @@ import { UserCircleIcon } from '@heroicons/react/solid'
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 
-const navbarLinks = [
-    {name: 'Product'},
-    {name: 'Solutions'},
-]
 
-export default function NavBar({ handleUserBtn }) {
+export default function NavBar({ handleUserBtn,  }) {
     useEffect(() => {
         console.log(window.scrollY)
     })
@@ -40,9 +36,9 @@ export default function NavBar({ handleUserBtn }) {
         </div>
         <div className="px-2 mx-2 navbar-end lg:flex">
             <Link href="/signin">
-            <a className="btn btn-ghost btn-sm rounded-btn hover:text-accent hover:bg-base-200 hover:border-transparent" >
-                log in
-            </a>
+                <a className="btn btn-ghost btn-sm rounded-btn hover:text-accent hover:bg-base-200 hover:border-transparent" >
+                    log in
+                </a>
             </Link>
             <button className="btn btn-sm btn-accent hidden lg:inline-block">Create a crew</button>
             <button className="btn btn-accent lg:hidden inline-block">

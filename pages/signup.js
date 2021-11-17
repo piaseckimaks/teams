@@ -1,6 +1,9 @@
 import React from 'react'
 import Form from '../components/Form'
 import Router from 'next/router'
+import NavBar from '../components/NavBar'
+import Modal from '../components/Modal'
+
 
 export default function signup() {
 
@@ -45,6 +48,10 @@ export default function signup() {
       }
 
     return (
-        <Form handleRegistration={handleRegistration}/>
+      <div className="h-screen">
+        {/* <NavBar /> */}
+        <Form handleRegistration={handleRegistration} />
+        {/* <Modal message={errorMessage}/> */}
+    </div>    
     )
 }

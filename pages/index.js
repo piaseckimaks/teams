@@ -5,19 +5,20 @@ import { useUser } from '../hooks/useUser'
 import Link from 'next/dist/client/link'
 import NavBar from '../components/NavBar'
 import Image from 'next/image'
+import Logo from '../components/Logo'
 
 const features = [
     { 
       name: 'UI', 
-      svg: 'undraw_image_post_re_25wd.svg' 
+      pic: 'https://images.pexels.com/photos/3755440/pexels-photo-3755440.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' 
     },
     { 
       name: 'Features',
-      svg: 'undraw_shared_goals_re_jvqd.svg' 
+      pic: 'undraw_shared_goals_re_jvqd.svg' 
     },
     { 
       name: 'Marketplace', 
-      svg: 'undraw_setup_analytics_re_foim.svg'
+      pic: 'undraw_setup_analytics_re_foim.svg'
     },
   ]
 
@@ -29,14 +30,7 @@ const sections = [
           <div className="hero-overlay bg-opacity-40"></div> 
           <div className="text-center hero-content text-neutral-content">
             <div className="max-w-md">
-              <h1 className="mb-5 text-5xl font-bold">
-                <span className="text-9xl font-semibold text-secondary-content lowercase tracking-tighter">
-                  crew
-                </span>
-                <span className="text-9xl font-bold text-accent uppercase tracking-tighter">
-                    it
-                </span>
-                  </h1> 
+                <Logo size="9xl" />
               <p className="mb-5 text-xl text-secondary-content">
                     Your place to collaborate, plan and get things done. It is open source web application for everyone from small group of friends to big corporate teams.
                   </p> 
@@ -50,17 +44,22 @@ const sections = [
   {
     name: 'Features',
     content: (
-      <div className="hero h-full w-full mx-auto bg-base-200  ">
+      <div className="hero h-full mx-auto bg-fixed" style={{backgroundImage: 'url("https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")'}}>
+          <div className="hero-overlay bg-opacity-40 "></div> 
         
-        <div className="text-center flex flex-col hero-content text-neutral-content">
-          <h1 className="text-5xl my-10 uppercase">core features</h1>
+
+        
+        <div className="text-center flex flex-col hero-content p-16 text-neutral-content bg-base-100">
+
+
+
           <div className="flex">
 
           {
             features.map((e,i)=>(
-              <div className="card glass mx-5 text-center shadow-2xl h-96 transform hover:cursor-pointer hover:scale-110 transition duration-300" key={i}>
+              <div className="card bg-accent-focus hover:bg-accent-focus mx-5 text-center shadow-2xl h-96 transform hover:cursor-pointer hover:scale-110 transition duration-300" key={i}>
                 <figure className="px-10 pt-10 h-48">
-                  <img src={e.svg} className="rounded-xl h-44"/>
+                  <img src={e.pic} className="rounded-xl h-44"/>
                 </figure> 
                 <div className="card-body">
                   <h2 className="card-title">shadow, center, padding</h2> 
@@ -81,12 +80,12 @@ const sections = [
   {
     name: 'Mobile',
     content: (
-      <div className="hero h-full w-full mx-auto bg-fixed" style={{backgroundImage: 'url("https://images.pexels.com/photos/3694711/pexels-photo-3694711.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")'}} >
+      <div className="hero h-full w-full mx-auto bg-fixed" style={{backgroundImage: 'url("https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")'}} >
         <div className="hero-overlay bg-opacity-40"></div> 
 
         <div className="relative h-full w-full">
           
-          <div className="absolute top-52 left-1/4 card glass lg:card-side text-neutral-content w-1/2">
+          <div className="absolute top-52 left-1/4 card glass lg:card-side text-neutral-content w-1/2 ">
               <figure className="p-6">
                 <img src="https://picsum.photos/id/1005/300/200" className="rounded-lg shadow-lg"/>
               </figure> 
@@ -158,7 +157,7 @@ export default function Index({ user}) {
         <NavBar />
         {
           sections.map((e,i)=>(
-            <section className=" h-screen relative " id={'section'+i} key={i}>
+            <section className="h-screen relative " id={'section'+i} key={i}>
               { e.content }
             </section>
           ))

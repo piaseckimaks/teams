@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import Form from '../components/Form'
+import Form from '../components/Form/Form'
 import useSWR from 'swr'
 import Router from 'next/router'
 import Modal from '../components/Modal'

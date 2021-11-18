@@ -1,5 +1,5 @@
 import React from 'react'
-import Form from '../components/Form'
+import Form from '../components/Form/Form'
 import Router from 'next/router'
 import NavBar from '../components/NavBar'
 import Modal from '../components/Modal'

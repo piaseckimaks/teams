@@ -1,53 +1,74 @@
-import { UserCircleIcon } from '@heroicons/react/solid'
-import React, { useEffect } from 'react'
+import { UserCircleIcon, ArrowRightIcon } from '@heroicons/react/solid'
+import React, { useEffect, useState, } from 'react'
 import Link from 'next/link'
+import Logo from './Logo'
+
 
 
 export default function NavBar({ handleUserBtn,  }) {
+    const [ user, setUser ] = useState(false)
+
     useEffect(() => {
-        console.log(window.scrollY)
+        
     })
 
     return (
-        <div className={`absolute sm:fixed top-0 navbar mx-auto shadow-md bg-base-200 text-neutral-content w-full z-10`}>
+        <div className={`absolute sm:fixed top-0 navbar mx-auto shadow-md bg-base-100 text-neutral-content w-full z-10`}>
         
         <div className="px-2 mx-2 navbar-start">
-            <Link href="/">
-            <a>
-            <span className="text-3xl font-semibold text-secondary-content ">
-                crew
-            </span>
-            <span className="text-3xl font-bold text-accent ">
-                IT
-            </span>
-            </a>
-            </Link>
-        </div> 
+            <Logo size="3xl"/>
+        </div>
+
         <div className="hidden px-2 mx-2 navbar-center lg:flex">
             <div className="flex items-stretch">
                 {
                     ['features', 'about us', 'docs'].map((e,i)=>(
-                        <a className="btn btn-sm rounded-btn hover:text-accent hover:bg-base-200 hover:border-transparent" key={i} href={'#section' + (i+1)}>
+                        <a className="btn btn-sm btn-ghost rounded-btn hover:text-accent hover:bg-base-100 hover:border-transparent" key={i} href={'#section' + (i+1)}>
                             {e}
                         </a>
                     ))
                 }
             </div>
+            <input type="checkbox" className="toggle" onClick={(e)=> e.currentTarget.checked ? setUser(true) : setUser(false) }/>
         </div>
-        <div className="px-2 mx-2 navbar-end lg:flex">
-            <Link href="/signin">
-                <a className="btn btn-ghost btn-sm rounded-btn hover:text-accent hover:bg-base-200 hover:border-transparent" >
-                    log in
-                </a>
-            </Link>
-            <button className="btn btn-sm btn-accent hidden lg:inline-block">Create a crew</button>
-            <button className="btn btn-accent lg:hidden inline-block">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-            </button>
+        
+
+        {user ? userNavigation : defaultNavigation}
+       
         </div>
-        {/* <div className="navbar-end">
+    )
+}
+
+
+const defaultNavigation = (
+    <div className="px-2 mx-2 navbar-end lg:flex">
+        <Link href="/signin">
+            <a className="btn btn-ghost btn-sm rounded-btn hover:text-accent hover:bg-base-100 hover:border-transparent" >
+                log in
+            </a>
+        </Link>
+        <button className="btn btn-sm btn-accent hidden lg:inline-block">Create a crew</button>
+        <button className="btn btn-accent lg:hidden inline-block">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        </button>
+    </div>
+)
+
+const userNavigation = (
+    <div className="px-2 mx-2 navbar-end lg:flex">
+        <Link href="/home">
+            <a className="btn btn-ghost btn-sm rounded-btn hover:text-accent hover:bg-base-100 hover:border-transparent" >
+                Go to dashboard
+                <ArrowRightIcon width="20px" className="ml-2"/>
+            </a>
+        </Link>
+    </div>
+)
+
+
+ {/* <div className="navbar-end">
             <button onClick={handleUserBtn}className="btn btn-square rounded-full btn-primary text-neutral-content">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -64,6 +85,3 @@ export default function NavBar({ handleUserBtn,  }) {
             </svg>
             </button>
         </div> */}
-        </div>
-    )
-}

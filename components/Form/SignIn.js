@@ -1,23 +1,23 @@
 import Link from 'next/link'
 
-export default function SignInForm() {
+export default function SignInForm({ handleLogin }) {
     return (
             <div className="relative max-w-md card w-96 p-5 bg-base-200">
                 <span className="text-3xl mb-3">Sign in</span>
                 <h2><span className="mr-1">Or</span><Link href="signup"><a className="link-accent">create new account!</a></Link></h2>
-                <form>
+                <form onSubmit={handleLogin}>
                     <div className="form-control">
                     <label className="label">
                         <span className="label-text">Username or email address</span>
                     </label> 
-                    <input type="email" required placeholder="username" className="input input-sm input-bordered" />
+                    <input type="email" name="email" required placeholder="e.g joe@doe.com" className="input input-sm input-bordered" />
                     </div> 
             
                     <div className="form-control mb-5">
                     <label className="label">
                         <span className="label-text">Password</span><span><Link href="#"><a className="text-sm link-accent">Forgot password?</a></Link></span>
                     </label> 
-                    <input type="password" required placeholder="username" className="input input-sm input-bordered" />
+                    <input type="password" name="password" required placeholder="Password" className="input input-sm input-bordered" />
                     </div> 
     
     

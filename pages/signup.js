@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Form from '../components/Form/Form'
 import Router from 'next/router'
 import NavBar from '../components/NavBar'
 import Modal from '../components/Modal'
 
 
-export default function signup() {
+export default function Signup() {
+    const [ errorMessage, setErrorMessage ] = useState('') 
+
+
+    function toggleModal(){
+      document.getElementById('my-modal').click()
+    }
 
     async function handleRegistration(e){
         e.preventDefault()
@@ -13,8 +19,8 @@ export default function signup() {
         console.log(e.currentTarget.password.value)
     
         const body = {
-          firstname: e.currentTarget.firstname.value,
-          lastname: e.currentTarget.lastname.value,
+          firstname: e.currentTarget.fname.value,
+          lastname: e.currentTarget.lname.value,
           username: e.currentTarget.email.value,
           password: e.currentTarget.password.value
         }
@@ -32,14 +38,18 @@ export default function signup() {
             }
           )
           
+          const res = await response.json()
+
           if(response.status === 200){
             console.log('fetched')
             
             Router.push('/signin')
           }
           else{
-            console.log(error.message)
-            throw new Error(await response.text())
+            if(res.errNum === 1062)
+              setErrorMessage('Account with that email address already exist!')
+            
+            toggleModal()
           }
         }
         catch(error){
@@ -51,7 +61,7 @@ export default function signup() {
       <div className="h-screen">
         {/* <NavBar /> */}
         <Form handleRegistration={handleRegistration} />
-        {/* <Modal message={errorMessage}/> */}
+        <Modal message={errorMessage}/>
     </div>    
     )
 }

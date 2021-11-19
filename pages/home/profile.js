@@ -8,7 +8,7 @@ export default function profile() {
     return (
         <UserInterface>
 
-            <Card className="w-5/6 h-full">
+            <Card className="w-full h-full">
             <div className="tabs">
                 <a className="tab tab-bordered">Tab 1</a> 
                 <a className="tab tab-bordered tab-active ">Tab 2</a> 

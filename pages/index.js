@@ -6,14 +6,16 @@ import Link from 'next/dist/client/link'
 import NavBar from '../components/NavBar'
 import Image from 'next/image'
 import Logo from '../components/Logo'
+import { getSession } from '../helpers/session'
+import { findUser } from '../helpers/user'
 
-export default function Index({ user}) {
+export default function Index({ user }) {
 
 
 
     return (
       <div id='scrollArea'>
-        <NavBar />
+        <NavBar user={user}/>
 
         <section className="h-screen relative" >
           <div className="hero relative h-full w-full mx-auto bg-fixed" style={{ backgroundImage: 'url("https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")' }} >
@@ -24,8 +26,7 @@ export default function Index({ user}) {
                 <p className="mb-5 text-xl text-secondary-content">
                   Your place to collaborate, plan and get things done. It is open source web application for everyone from small group of friends to big corporate teams.
                 </p>
-                <button className="btn btn-accent btn-sm mr-2">create a crew</button>
-                <button className="btn btn-accent btn-sm">learn more</button>
+                <Link href="/signup"><a className="btn btn-accent btn-sm">Get started</a></Link>
               </div>
             </div>
 
@@ -46,6 +47,29 @@ export default function Index({ user}) {
    
 }
 
+
+export async function getServerSideProps({ req }){
+  
+  try {
+    const session = await getSession(req)
+    const user = (session && (await findUser(session))) ?? null
+    console.log('from /auth/user', user)
+ 
+    // res.status(200).json({ user })
+
+    if(user)
+      return { props: { user: {id: user.id, firstname: user.firstname, lastname: user.lastname,} } }
+
+    return { props: {user: null}}
+
+  } catch (error) {
+    console.error(error)
+    // res.status(500).end('Authentication token is invalid, please log in')
+
+    return {props: { error: 'internal server error' }}
+  }
+
+}
 
 
 

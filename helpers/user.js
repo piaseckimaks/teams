@@ -21,35 +21,40 @@ const users = [
 ]
 
 export async function createUser({ firstname, lastname, username, password }) {
-  // Here you should create the user and save the salt and hashed password (some dbs may have
-  // authentication methods that will do it for you so you don't have to worry about it):
-  const salt = crypto.randomBytes(16).toString('hex')
-  const hash = crypto
-    .pbkdf2Sync(password, salt, 1000, 64, 'sha512')
-    .toString('hex')
-  const user = {
-    id: uuidv4(),
-    createdAt: Date.now(),
-    username,
-    hash,
-    salt,
-  }
-
-  // This is an in memory store for users, there is no data persistence without a proper DB
-  users.push(user)
-
-  connection.connect();
- 
-  connection.query(`INSERT INTO vercel.Users (firstname, lastname, email, hashed_password, salt) VALUES ('${firstname}', '${lastname}', '${username}', '${hash}', '${salt}')`, function (error, results, fields) {
-    if (error) throw error;
-    console.log('The result is: ', results);
-  });
   
-  connection.end();
+  try
+  {
+    // Here you should create the user and save the salt and hashed password (some dbs may have
+    // authentication methods that will do it for you so you don't have to worry about it):
+    const salt = crypto.randomBytes(16).toString('hex')
+    const hash = crypto
+      .pbkdf2Sync(password, salt, 1000, 64, 'sha512')
+      .toString('hex')
+    const user = {
+      id: uuidv4(),
+      createdAt: Date.now(),
+      username,
+      hash,
+      salt,
+    }
 
-  console.log(users)
+    // This is an in memory store for users, there is no data persistence without a proper DB
+    users.push(user)
 
-  return { username, createdAt: Date.now() }
+    const connection = await mysql.createConnection(configDB);
+  
+    const result = await connection.query(`INSERT INTO vercel.Users (firstname, lastname, email, hashed_password, salt) VALUES ('${firstname}', '${lastname}', '${username}', '${hash}', '${salt}')`)
+    
+    console.log(result[0].insertId)
+
+    connection.end();
+
+    return { username, createdAt: Date.now() }
+  }
+  catch(err)
+  {
+    throw err
+  }
 }
 
 // Here you should lookup for the user in your DB

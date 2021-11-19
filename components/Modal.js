@@ -11,7 +11,7 @@ export default function Modal({ message, }) {
                 <div className="modal-box">
                 <p className="text-center">{message}</p> 
                 <div className="modal-action">
-                    <label htmlFor="my-modal" className="btn btn-primary">OK</label> 
+                    <label htmlFor="my-modal" className="btn btn-accent">OK</label> 
                     {/* <label htmlFor="my-modal" className="btn">Close</label> */}
                 </div>
                 </div>

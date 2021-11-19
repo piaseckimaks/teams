@@ -23,7 +23,8 @@ export default function Home({handleSubmit, user}) {
 
 
   return (
-    <UserInterface>
+    <UserInterface >
+      <div className="flex flex-wrap justify-center">
       <Card className="w-80">
         <p className="text-center uppercase">your crews</p>
         <div className="divider m-0"/>
@@ -31,9 +32,9 @@ export default function Home({handleSubmit, user}) {
         <ul>
           {
             teams.map((e,i)=>(
-              <li key={i} className="h-8 bg-base-200 hover:bg-base-300 flex cursor-pointer w-full border-base-100 border-b-2 relative transform active:scale-95 duration-200">
-                <span className="absolute left-1 uppercase">crew name</span>
-                  <div data-tip="you'er leader of crew" className="tooltip tooltip-left w-5 absolute right-1 my-1">
+              <li key={i} className="rounded-md p-1 flex justify-between h-8 bg-base-200 hover:bg-base-300 cursor-pointer w-full border-base-100 border-b-2 transform active:scale-95 duration-200">
+                <span className=" left-1 uppercase">crew name</span>
+                  <div data-tip="you'er leader of crew" className="tooltip tooltip-right w-5  right-1 my-1">
                     <LightningBoltIcon className="text-accent" />
                   </div>
               </li>
@@ -110,8 +111,8 @@ export default function Home({handleSubmit, user}) {
         <div className=" flex flex-wrap justify-start">
           {
             agenda.map((e,i)=>(
-              <div key={i} className={`w-14 h-14 bg-base-200 m-0.5 transform duration-150 hover:scale-110 cursor-pointer hover:bg-accent`}>
-                {i + 1}
+              <div key={i} className={`w-14 h-14 bg-base-300 rounded-box p-1 m-0.5 group transform duration-75 hover:scale-125 hover:z-10 hover:rounded-full cursor-pointer hover:bg-accent `}>
+                <p className="transform  group-hover:text-center group-hover:text-3xl">{i + 1}</p>
               </div>
             ))
           }
@@ -147,7 +148,7 @@ export default function Home({handleSubmit, user}) {
                   </div>
                 </td>
                 <td>
-                  <div className="  h-full text-center border-white border-r-2 px-1">
+                  <div className="  h-full text-center border-white border-r-2 px-2">
                     <progress className="progress progress-accent bg-base-300" value={i%2 ? 50 : 75} max="100"></progress> 
                   </div>
                 </td>
@@ -162,7 +163,7 @@ export default function Home({handleSubmit, user}) {
         </tbody>
       </table>
       </Card>
-      
+    </div>
     </UserInterface>
   )
 }
@@ -181,7 +182,7 @@ export async function getServerSideProps({ req }){
     if(user)
       return { props: { user: {id: user.id, firstname: user.firstname, lastname: user.lastname,} } }
 
-    return { props: {user: 'not found'}}
+    return { redirect: {destination: '/', permament: false}}
 
   } catch (error) {
     console.error(error)

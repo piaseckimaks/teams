@@ -18,7 +18,7 @@ export default function Form({ handleRegistration, handleLogin, isSignForm }) {
             </Link>
             <div className="divider divider-vertical"></div>
 
-            {isSignForm ? <SignIn /> : <SignUp />}
+            {isSignForm ? <SignIn handleLogin={handleLogin} /> : <SignUp handleRegistration={handleRegistration}/>}
 
           </div>
         </div>

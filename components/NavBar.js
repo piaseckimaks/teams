@@ -5,11 +5,11 @@ import Logo from './Logo'
 
 
 
-export default function NavBar({ handleUserBtn,  }) {
-    const [ user, setUser ] = useState(false)
+export default function NavBar({ handleUserBtn, user  }) {
+    
 
     useEffect(() => {
-        
+        console.log(user)
     })
 
     return (
@@ -29,7 +29,7 @@ export default function NavBar({ handleUserBtn,  }) {
                     ))
                 }
             </div>
-            <input type="checkbox" className="toggle" onClick={(e)=> e.currentTarget.checked ? setUser(true) : setUser(false) }/>
+            {/* <input type="checkbox" className="toggle" onClick={(e)=> e.currentTarget.checked ? setUser(true) : setUser(false) }/> */}
         </div>
         
 

@@ -6,7 +6,16 @@ module.exports = {
   },
   variants: {
     extend: {
-      scale: ['active']
+      scale: ['active'],
+      flex: ['hover'],
+      justifyContent: ['hover'],
+      itemsAlign: ['hover'],
+      translate: ['group-hover'],
+      fontSize: ['group-hover'],
+      borderRadius: ['hover'],
+      zIndex: ['hover'],
+      margin: ['group-hover'],
+      textAlign: ['group-hover']
     },
   },
   plugins: [

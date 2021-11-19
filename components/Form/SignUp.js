@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 
-export default function SignUp() {
+export default function SignUp({ handleRegistration }) {
+    const [ pass, setPass ] = useState('')
+
     return (
         <div className="relative max-w-md card w-96 p-5 bg-base-200">
 
@@ -9,7 +11,7 @@ export default function SignUp() {
               <h2><span className="mr-1">Already have an account?</span><Link href="signin"><a className="link-accent">Sign in.</a></Link></h2>
 
 
-              <form>
+              <form onSubmit={handleRegistration} >
 
                 <div className="form-control">
                   <label className="label">
@@ -36,14 +38,22 @@ export default function SignUp() {
                   <label className="label">
                     <span className="label-text">Password</span>
                   </label>
-                  <input type="password" placeholder="Password" className="input input-sm input-bordered" title="password" />
+                  <input 
+                    type="password" 
+                    placeholder="Password" 
+                    name="password" 
+                    className="input input-sm input-bordered" 
+                    title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" 
+                    onChange={(e)=> setPass(e.currentTarget.value)} 
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                  />
                 </div>
 
                 <div className="form-control mb-5">
                   <label className="label">
                     <span className="label-text">Repeat password</span>
                   </label>
-                  <input type="password" placeholder="Repeat password" className="input input-sm input-bordered" />
+                  <input type="password" placeholder="Repeat password" title="passwords must match" className="input input-sm input-bordered" pattern={`${pass}`} />
                 </div>
 
 

@@ -4,7 +4,7 @@ import Card from '../../components/UserInterface/Card'
 
 
 
-export default function profile() {
+export default function inbox() {
     return (
         <UserInterface>
 

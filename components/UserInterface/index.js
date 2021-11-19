@@ -4,7 +4,7 @@ import SideBar from './SideBar'
 
 function UserInterface({children}) {
     return (
-        <div className="h-screen w-screen flex overflow-hidden" style={{backgroundImage: 'url("https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")'}}>
+        <div className="h-screen w-screen flex overflow-hidden" style={{backgroundImage: 'url("https://images.pexels.com/photos/3745234/pexels-photo-3745234.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")'}}>
             <SideBar />
             <div className="hero relative w-full h-full">
             <div className="hero-overlay bg-opacity-40"></div>

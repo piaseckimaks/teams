@@ -34,7 +34,7 @@ export default function Home({handleSubmit, user}) {
               <li key={i} className="h-8 bg-base-200 hover:bg-base-300 flex cursor-pointer w-full border-base-100 border-b-2 relative transform active:scale-95 duration-200">
                 <span className="absolute left-1 uppercase">crew name</span>
                   <div data-tip="you'er leader of crew" className="tooltip tooltip-left w-5 absolute right-1 my-1">
-                    <LightningBoltIcon className="" />
+                    <LightningBoltIcon className="text-accent" />
                   </div>
               </li>
             ))
@@ -50,7 +50,7 @@ export default function Home({handleSubmit, user}) {
             <th ></th>
             <th >Title</th>
             <th >From</th>
-            <th >Date</th>
+            <th className="w-1/5">Date</th>
           </tr>
         </thead>
         <tbody className="w-full">
@@ -58,22 +58,22 @@ export default function Home({handleSubmit, user}) {
             teams.map((e,i)=>(
               <tr key={i} className="h-8 bg-base-200 hover:bg-base-300 cursor-pointer border-base-100 border-b-2">
                 <td>
-                  <div className="w-8 h-full flex justify-center items-center border-white border-r-2 text-center">
-                    <input type="checkbox" className="checkbox checkbox-sm" /> 
+                  <div className=" h-full flex justify-center items-center border-white border-r-2 text-center">
+                    <input type="checkbox" className="checkbox checkbox-sm checkbox-accent" /> 
                   </div>
                 </td>
                 <td>
-                  <div className="w-80 h-full text-center border-white border-r-2">
+                  <div className=" h-full text-center border-white border-r-2">
                     <span className="link">Some title of message</span>
                   </div>
                 </td>
                 <td>
-                  <div className=" w-80 h-full text-center border-white border-r-2">
+                  <div className="  h-full text-center border-white border-r-2">
                     <span>Joe Doe</span>
                   </div>
                 </td>
                 <td>
-                  <div className=" w-36 h-full text-center">
+                  <div className="  h-full text-center">
                     <span>10.10.10 16:00</span>
                   </div>
                 </td>
@@ -107,7 +107,7 @@ export default function Home({handleSubmit, user}) {
         <p className="text-center uppercase">agenda</p>
         <div className="divider m-0"/>
 
-        <div className="bg-base-300 flex flex-wrap justify-start">
+        <div className=" flex flex-wrap justify-start">
           {
             agenda.map((e,i)=>(
               <div key={i} className={`w-14 h-14 bg-base-200 m-0.5 transform duration-150 hover:scale-110 cursor-pointer hover:bg-accent`}>
@@ -118,7 +118,7 @@ export default function Home({handleSubmit, user}) {
         </div>
         <div className="divider m-0"/>
         <h1 className="text-center m-0 uppercase ">today</h1>
-        <ul className="h-20 overflow-auto">
+        <ul className="h-16 overflow-auto">
           {
             [1,2,3,4,5].map((e,i)=> <li key={i} >- some planned stuff</li>)
           }
@@ -129,18 +129,38 @@ export default function Home({handleSubmit, user}) {
         <p className="text-center uppercase">tasks</p>
         <div className="divider m-0"/>
 
-        <ul>
+        <table className="w-full">
+        <thead className="w-full">
+          <tr>
+            <th className="w-3/4">task</th>
+            <th >status</th>
+            <th >deadline</th>
+          </tr>
+        </thead>
+        <tbody className="w-full">
           {
             teams.map((e,i)=>(
-              <li key={i} className="h-8 bg-base-200 hover:bg-base-300 flex cursor-pointer w-full border-base-100 border-b-2 relative transform active:scale-95 duration-200">
-                <span className="absolute left-1 uppercase">crew name</span>
-                  <div data-tip="you'er leader of crew" className="tooltip tooltip-left w-5 absolute right-1 my-1">
-                    <LightningBoltIcon className="" />
+              <tr key={i} className="h-8 bg-base-200 hover:bg-base-300 cursor-pointer border-base-100 border-b-2">
+                <td>
+                  <div className=" h-full text-center border-white border-r-2">
+                    <span >Some task to be done</span>
                   </div>
-              </li>
+                </td>
+                <td>
+                  <div className="  h-full text-center border-white border-r-2 px-1">
+                    <progress className="progress progress-accent bg-base-300" value={i%2 ? 50 : 75} max="100"></progress> 
+                  </div>
+                </td>
+                <td>
+                  <div className=" text-center">
+                    <span>10.10.10 16:00</span>
+                  </div>
+                </td>
+              </tr>
             ))
           }
-        </ul>
+        </tbody>
+      </table>
       </Card>
       
     </UserInterface>

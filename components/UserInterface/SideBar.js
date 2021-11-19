@@ -1,10 +1,15 @@
 import React from 'react'
-import { ViewGridIcon, TemplateIcon, FolderIcon, IdentificationIcon, ChevronLeftIcon, DatabaseIcon, ServerIcon, ChartPieIcon } from '@heroicons/react/solid'
+import { ViewGridIcon, TemplateIcon, FolderIcon, IdentificationIcon, ChevronLeftIcon, DatabaseIcon, ServerIcon, ChartPieIcon, HomeIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 
 const iconsStyling = "inline-block w-6 h-6 stroke-current text-accent group-hover:text-base-content"
 
 const buttons = [
+    {
+        name: 'home',
+        icon: HomeIcon,
+        href: ''
+    },
     {
         name: 'dashboard',
         icon: ViewGridIcon,
@@ -39,15 +44,15 @@ const buttons = [
 
 export default function SideBar() {
     return (
-        <div className="h-full w-16 bg-accent">
-            <ul className="menu w-full h-full shadow-lg bg-base-100">
+        <div className="h-full w-12">
+            <ul className="flex flex-col w-full h-full shadow-lg bg-base-100">
                 {
                     buttons.map((e,i)=>(
-                        <li key={i} className="group hover:bg-accent hover:bg-opacity-40">
+                        <li key={i} className="w-12 h-12 group flex justify-center hover:bg-accent cursor-pointer items-center">
                             <Link href={'/home/' + e.href}>
-                            <a className="">
-                                <e.icon className={iconsStyling} />
-                            </a>
+                                <a className="">
+                                    <e.icon className={iconsStyling} />
+                                </a>
                             </Link>
                         </li>
                     ))

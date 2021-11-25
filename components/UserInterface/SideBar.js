@@ -53,26 +53,28 @@ export default function SideBar() {
             <ul className="flex flex-col w-full items-center">
                 {
                     upperButtons.map((e,i)=>(
-                        <li key={i} className="w-12 h-12 group flex justify-center hover:bg-accent cursor-pointer items-center rounded-box transform duration-150 active:scale-90">
-                            <Link href={e.href}>
+                        
+                            <Link href={e.href} key={i}>
                                 <a className="">
+                                <li  className="tooltip tooltip-right w-12 h-12 group flex justify-center hover:bg-accent cursor-pointer items-center rounded-box transform duration-150 active:scale-90">
                                     <e.icon className={iconsStyling} />
+                                </li>
                                 </a>
                             </Link>
-                        </li>
+                        
                     ))
                 }
             </ul>
             <ul className="flex flex-col w-full items-center">
                 {
                     lowerButtons.map((e,i)=>(
-                        <li key={i} className="w-12 h-12 group flex justify-center hover:bg-accent cursor-pointer items-center rounded-box transform duration-150 active:scale-90">
-                            <Link href={e.href}>
+                            <Link href={e.href} key={i}>
                                 <a className="">
-                                    <e.icon className={iconsStyling} />
+                                    <li  className="w-12 h-12 group flex justify-center hover:bg-accent cursor-pointer items-center rounded-box transform duration-150 active:scale-90">
+                                        <e.icon className={iconsStyling} />
+                                    </li>
                                 </a>
                             </Link>
-                        </li>
                     ))
                 }
             </ul>

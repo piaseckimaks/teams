@@ -23,7 +23,7 @@ export default function Home({handleSubmit, user}) {
 
 
   return (
-    <UserInterface >
+    <UserInterface user={user}>
       <div className="flex flex-wrap justify-center">
       <Card className="w-80">
         <p className="text-center uppercase">your crews</p>

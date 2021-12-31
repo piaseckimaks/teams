@@ -1,21 +1,10 @@
-import Head from 'next/head'
-import Link from 'next/link'
-import Image from 'next/image'
-import Router from 'next/router'
-import RedirectToSignIn from '../../components/RedirectToSignIn'
-import { useUser } from '../../hooks/useUser'
-import { Fragment, useEffect } from 'react'
-import { BellIcon, MenuIcon, XIcon, DotsHorizontalIcon, ChevronDownIcon  } from '@heroicons/react/outline'
-import { LightningBoltIcon } from '@heroicons/react/solid'
+
 import { getSession } from '../../helpers/session'
 import { findUser } from '../../helpers/user'
-import NavBar from '../../components/NavBar'
-import { UserInterface } from '../../components/UserInterface/'
-import Card from '../../components/UserInterface/Card'
 
-const teams = [1,2,3,4,5]
+// const teams = [1,2,3,4,5]
 
-const agenda = Array.from(Array(30).keys())
+// const agenda = Array.from(Array(30).keys())
 
 export default function Home({handleSubmit, user}) {
   

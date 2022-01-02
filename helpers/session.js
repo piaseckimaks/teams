@@ -16,7 +16,8 @@ export async function getSession(req){
     console.log('cookies from session:', req.cookies)
     const token = getTokenCookie(req)
     console.log('token from /helpers/session:', token)
-    if(!token) return
+    if(!token) 
+        return {}
 
     const sessionData = await Iron.unseal(token, TOKEN_SECRET, Iron.defaults)
     const dtExpires = sessionData.dtCreated + sessionData.maxAge * 1000

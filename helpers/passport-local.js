@@ -10,7 +10,7 @@ export const localStrategy = new Local.Strategy(function (
     .then((user) => {
       console.log('user from pass-local: ',user)
       if (user && validatePassword(user, password)) {
-        console.log('validate user:', password)
+        console.log('validate user:', validatePassword(user,password))
         done(null, user)
       } else {
         done(new Error('Invalid username or password!'))

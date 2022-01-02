@@ -52,19 +52,20 @@ export async function getServerSideProps({ req }){
   
   try {
     const session = await getSession(req)
-    const user = (session && (await findUser(session))) ?? null
-    console.log('from /auth/user', user)
- 
-    // res.status(200).json({ user })
 
-    if(user)
-      return { props: { user: {id: user.id, firstname: user.firstname, lastname: user.lastname,} } }
+    if(session.hasOwnProperty('email')){
+      const { email: username } = session
+      const user = (session && (await findUser({ username }))) ?? null  
+    
+      if(user)
+        return { props: { user: {id: user.id, firstname: user.firstname, lastname: user.lastname,} } }
+
+    }
 
     return { props: {user: null}}
 
   } catch (error) {
     console.error(error)
-    // res.status(500).end('Authentication token is invalid, please log in')
 
     return {props: { error: 'internal server error' }}
   }

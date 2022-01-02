@@ -1,4 +1,5 @@
 
+import { useEffect } from 'react'
 import { getSession } from '../../helpers/session'
 import { findUser } from '../../helpers/user'
 
@@ -9,7 +10,7 @@ import { findUser } from '../../helpers/user'
 export default function Home({handleSubmit, user}) {
   
   useEffect(()=> console.log(user))
-
+    
 
   return (
     <p>Logged as {user.firstname}</p>

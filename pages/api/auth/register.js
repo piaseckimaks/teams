@@ -8,7 +8,7 @@ export default async function signup(req, res) {
     
     res.status(200).send({ done: true })
   } catch (error) {
-    console.error(error.message)
-    res.status(500).json({errNum: error.errno})
+    console.error(error)
+    res.status(500).json({errMsg: error.message})
   }
 }

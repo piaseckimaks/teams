@@ -23,3 +23,9 @@
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-accent-focus
   }
+
+  @layer components{
+    .form-custom{
+      @apply absolute top-0 left-0 py-2 text-neutral-content h-full w-full flex flex-col justify-center items-center md:flex-row md:justify-center md:items-center  overflow-auto;
+    }
+  }

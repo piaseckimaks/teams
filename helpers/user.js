@@ -1,6 +1,7 @@
 import crypto from 'crypto'
 import { v4 as uuidv4 } from 'uuid'
 import mysql from 'mysql2/promise'
+import { getUserByEmail, getUserById, addUserToDB } from '../database'
 
 /**
  * User methods. The example doesn't contain a DB, but for real applications you must use a
@@ -20,36 +21,28 @@ const users = [
   
 ]
 
-export async function createUser({ firstname, lastname, username, password }) {
+export async function createUser({ firstname, lastname, email, password }) {
   
   try
   {
     // Here you should create the user and save the salt and hashed password (some dbs may have
     // authentication methods that will do it for you so you don't have to worry about it):
     const salt = crypto.randomBytes(16).toString('hex')
-    const hash = crypto
+    const hashed_password = crypto
       .pbkdf2Sync(password, salt, 1000, 64, 'sha512')
       .toString('hex')
+
     const user = {
-      id: uuidv4(),
-      createdAt: Date.now(),
-      username,
-      hash,
+      firstname,
+      lastname,
+      email,
+      hashed_password,
       salt,
     }
-
-    // This is an in memory store for users, there is no data persistence without a proper DB
-    users.push(user)
-
-    const connection = await mysql.createConnection(configDB);
   
-    const result = await connection.query(`INSERT INTO vercel.Users (firstname, lastname, email, hashed_password, salt) VALUES ('${firstname}', '${lastname}', '${username}', '${hash}', '${salt}')`)
-    
-    console.log(result[0].insertId)
+    const newUser = await addUserToDB(user);
 
-    connection.end();
-
-    return { username, createdAt: Date.now() }
+    return newUser
   }
   catch(err)
   {
@@ -58,18 +51,12 @@ export async function createUser({ firstname, lastname, username, password }) {
 }
 
 // Here you should lookup for the user in your DB
-export async function findUser({ username, email }) {
+export async function findUser( {username: email} ) {
 
-  const connection = await mysql.createConnection(configDB);
-
-  const [rows, fields] = await connection.execute(`SELECT * FROM Users WHERE email='${username || email}';`)
-  console.log(rows)
-  const user = rows[0]
+  const user = await getUserByEmail( {email} )
 
   return user
-  
 
-  
   // This is an in memory store for users, there is no data persistence without a proper DB
   
 }
@@ -81,13 +68,10 @@ export async function validatePassword(user, inputPassword) {
   const inputHash = crypto
     .pbkdf2Sync(inputPassword, user.salt, 1000, 64, 'sha512')
     .toString('hex')
-    console.log('hash received: ',inputHash)
-    console.log('hash saved: ',user.hashed_password)
-  // const passwordsMatch = user.hash === inputHash
+    console.log('hash received: ', inputHash)
+    console.log('hash saved: ', user.hashed_password)
+    const passwordsMatch = user.hash === inputHash
 
-  const connection = await mysql.createConnection(configDB);
-
-  const [rows, fields] = await connection.execute(`SELECT * FROM Users WHERE hashed_password='${inputHash}';`)
-
-  return rows.length > 0 ? true : false
+  
+  return passwordsMatch ? true : false;
 }

@@ -21,7 +21,7 @@ export default function Signup() {
         const body = {
           firstname: e.currentTarget.fname.value,
           lastname: e.currentTarget.lname.value,
-          username: e.currentTarget.email.value,
+          email: e.currentTarget.email.value,
           password: e.currentTarget.password.value
         }
     
@@ -46,8 +46,8 @@ export default function Signup() {
             Router.push('/signin')
           }
           else{
-            if(res.errNum === 1062)
-              setErrorMessage('Account with that email address already exist!')
+            
+            setErrorMessage('Account with that email address already exist!')
             
             toggleModal()
           }

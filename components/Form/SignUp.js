@@ -45,7 +45,8 @@ export default function SignUp({ handleRegistration }) {
                     className="input input-sm input-bordered" 
                     title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters" 
                     onChange={(e)=> setPass(e.currentTarget.value)} 
-                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                    pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                    required
                   />
                 </div>
 
@@ -53,7 +54,7 @@ export default function SignUp({ handleRegistration }) {
                   <label className="label">
                     <span className="label-text">Repeat password</span>
                   </label>
-                  <input type="password" placeholder="Repeat password" title="passwords must match" className="input input-sm input-bordered" pattern={`${pass}`} />
+                  <input type="password" placeholder="Repeat password" title="passwords must match" className="input input-sm input-bordered" pattern={`${pass}`} required/>
                 </div>
 
 

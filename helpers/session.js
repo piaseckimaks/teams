@@ -7,7 +7,7 @@ const TOKEN_SECRET = process.env.TOKEN_SECRET
 export async function makeSession(res, sessionData){
     const dtCreated = Date.now()
     const sessionObj = { ...sessionData, dtCreated, maxAge: MAX_AGE}
-    console.log(TOKEN_SECRET)
+    console.log('token',TOKEN_SECRET)
     const token = await Iron.seal(sessionObj, TOKEN_SECRET, Iron.defaults)
     setTokenCookie(res, token)
 }

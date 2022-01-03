@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { getSession } from '../../helpers/session'
 import { findUser } from '../../helpers/user'
 import Link from 'next/link'
+import SideBar from '../../components/UserInterface/SideBar'
 
 // const teams = [1,2,3,4,5]
 
@@ -14,10 +15,17 @@ export default function Home({handleSubmit, user}) {
     
 
   return (
-    <>
-      <p>Logged as {user.firstname} {user.lastname}</p>
-      <Link href="/api/auth/logout"><a className='btn btn-primary'> logout </a></Link> 
-    </>
+    <div className='flex h-screen p-1 bg-base-300'>
+      <SideBar />
+        <div className='h-full w-full flex justify-center items-center border'>
+          <div className='text-center'>
+            <p className='mb-1'>Logged as {user.firstname} {user.lastname}</p>
+            <Link href="/api/auth/logout"><a className='btn btn-primary'> logout </a></Link> 
+          </div>
+
+      </div>
+
+    </div>
   )
 }
 

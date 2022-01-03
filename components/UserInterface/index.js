@@ -4,7 +4,8 @@ import SideBar from './SideBar'
 
 function UserInterface({children, user}) {
     return (
-        <div className="h-screen w-screen flex overflow-hidden p-2 bg-base-300 " >
+        <div className="h-screen w-screen flex overflow-hidden p-2 bg-base-300" >
+
             <SideBar />
             
             <div className=" relative w-full h-full">

@@ -1,8 +1,8 @@
 import React from 'react'
-import { InboxIcon, UserGroupIcon, FolderIcon, IdentificationIcon, ChevronLeftIcon, DatabaseIcon, ServerIcon, ChartPieIcon, HomeIcon, UserCircleIcon, SupportIcon } from '@heroicons/react/outline'
+import { InboxIcon, ChatIcon, FolderIcon, HomeIcon, UserCircleIcon, SupportIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
 
-const iconsStyling = "inline-block w-6 h-6 stroke-current text-accent group-hover:text-base-content"
+const iconsStyling = "inline-block w-6 h-6 stroke-current text-base-content group-hover:text-base-content"
 
 
 
@@ -13,9 +13,9 @@ const upperButtons = [
         href: '/home/'
     },
     {
-        name: 'my crews',
-        icon: UserGroupIcon,
-        href: '/home/my_crews'
+        name: 'chat',
+        icon: ChatIcon,
+        href: '/home/chat'
     },
     {
         name: 'inbox',
@@ -49,7 +49,7 @@ const lowerButtons = [
 
 export default function SideBar() {
     return (
-        <div className="card h-full w-16 flex flex-col justify-between bg-base-100 mr-2 bg-opacity-80 py-2">
+        <div className="card h-full w-16 flex flex-col justify-between bg-base-content mr-2 bg-opacity-80 py-2">
             <ul className="flex flex-col w-full items-center">
                 {
                     upperButtons.map((e,i)=>(

@@ -16,7 +16,8 @@ module.exports = {
       borderRadius: ['hover'],
       zIndex: ['hover'],
       margin: ['group-hover'],
-      textAlign: ['group-hover']
+      textAlign: ['group-hover'],
+      stroke: ['group-hover'],
     },
   },
   plugins: [

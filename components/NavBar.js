@@ -1,7 +1,6 @@
 import { UserCircleIcon, ArrowRightIcon } from '@heroicons/react/solid'
 import React, { useEffect, useState, } from 'react'
 import Link from 'next/link'
-import Logo from './Logo'
 
 
 
@@ -13,10 +12,19 @@ export default function NavBar({ handleUserBtn, user  }) {
     })
 
     return (
-        <div className={`absolute sm:fixed top-0 navbar mx-auto shadow-md bg-base-100 text-neutral-content w-full z-10`}>
+        <div className={` navbar mx-auto shadow-md bg-base-100 text-neutral-content`}>
         
         <div className="px-2 mx-2 navbar-start">
-            <Logo size="3xl"/>
+            <Link href="/">
+                <a>
+                    <span className={`text-3xl text-secondary-content lowercase tracking-tighter`}>
+                        crew
+                    </span>
+                    <span className={`text-3xl font-bold text-accent uppercase tracking-tighter`}>
+                        it
+                    </span>
+                </a>
+            </Link>
         </div>
 
         <div className="hidden px-2 mx-2 navbar-center lg:flex">

@@ -1,6 +1,4 @@
 import crypto from 'crypto'
-import { v4 as uuidv4 } from 'uuid'
-import mysql from 'mysql2/promise'
 import { getUserByEmail, getUserById, addUserToDB } from '../database'
 
 /**
@@ -8,12 +6,6 @@ import { getUserByEmail, getUserById, addUserToDB } from '../database'
  * db here, such as MongoDB, Fauna, SQL, etc.
  */
 
-const configDB = {
-  host     : process.env.DB_HOST,
-  user     : process.env.DB_USER,
-  password : process.env.DB_PWD,
-  database : process.env.DB_NAME
-}
  
 
 

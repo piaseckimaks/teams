@@ -15,14 +15,15 @@ export default function Index({ user }) {
 
     return (
       <div id='scrollArea'>
-        <NavBar user={user}/>
-
+        <div className='absolute top-0 w-screen bg-primary z-10'>
+          <NavBar user={user}/>
+        </div>
         <section className="h-screen relative" >
           <div className="hero relative h-full w-full mx-auto bg-fixed" style={{ backgroundImage: 'url("https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260")' }} >
             <div className="hero-overlay bg-opacity-40"></div>
             <div className="text-center hero-content text-neutral-content">
               <div className="max-w-md">
-                <Logo size="9xl" />
+                <Logo  />
                 <p className="mb-5 text-xl text-secondary-content">
                   Your place to collaborate, plan and get things done. It is open source web application for everyone from small group of friends to big corporate teams.
                 </p>

@@ -79,21 +79,22 @@ const lowerButtons = [
     }
 ]
 
-export default function SideBar() {
+export default function SideBar({handleNavigation}) {
+
     return (
         <div className="h-full w-16 flex flex-col justify-between bg-base-100 py-5">
             <ul className="flex flex-col w-full items-center">
                 {
                     upperButtons.map((e,i)=>(
                         
-                            <Link href={e.href} key={i}>
-                                <a className="">
+                            
+                                <a key={i} onClick={() => handleNavigation(i)}>
                                 <li data-tip={e.name} className="z-10 tooltip tooltip-right tooltip-accent w-16 h-12 group flex justify-center hover:bg-accent cursor-pointer items-center transform duration-150 active:scale-90">
                                     {/* <e.icon className={iconsStyling} /> */}
                                     {e.icon}
                                 </li>
                                 </a>
-                            </Link>
+                            
                         
                     ))
                 }
@@ -101,14 +102,12 @@ export default function SideBar() {
             <ul className="flex flex-col w-full items-center">
                 {
                     lowerButtons.map((e,i)=>(
-                            <Link href={e.href} key={i}>
-                                <a className="">
+                                <a className="" href={e.href} key={i}>
                                     <li  className="w-16 h-12 group flex justify-center hover:bg-accent cursor-pointer items-center transform duration-150 active:scale-90">
                                         {/* <e.icon className={iconsStyling} /> */}
                                         {e.icon}
                                     </li>
                                 </a>
-                            </Link>
                     ))
                 }
             </ul>

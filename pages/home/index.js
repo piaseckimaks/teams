@@ -1,38 +1,36 @@
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { getSession } from '../../helpers/session'
 import { findUser } from '../../helpers/user'
 import Link from 'next/link'
-import SideBar from '../../components/UserInterface/SideBar'
+import SideBar from '../../components/SideBar'
 import NavBar from '../../components/NavBar'
+import Chat from '../../components/chat'
+import Dashboard from '../../components/Dashboard/Dashboard'
 
-// const teams = [1,2,3,4,5]
 
-// const agenda = Array.from(Array(30).keys())
 
 export default function Home({handleSubmit, user}) {
+  const [ currentSection, setCurrentSection ] = useState(0) 
+
+  const sections = [
+    {component: <Dashboard user={user}/>},
+    {component: <Chat user={user}/>},
   
-  useEffect(()=> console.log(user))
-    
+  ]
+  
+  function handleNavigation(index){
+    setCurrentSection(index)
+    console.log(currentSection)
+  }
 
   return (
     <div className='flex h-screen bg-base-300' >
-        <SideBar />
-        <section className="flex h-screen w-screen" >
-          <div></div>
-          
-        </section>
-        {/* <div className=''>
-        <div className='hero-overlay'></div>
-        <div className='h-full w-full hero-content'>
-        <SideBar />
-          <div className='text-center'>
-            <p className='mb-1'>Logged as {user.firstname} {user.lastname}</p>
-            <Link href="/api/auth/logout"><a className='btn btn-primary'> logout </a></Link> 
-          </div>
-      
-      </div>
-      </div> */}
+        <SideBar handleNavigation={handleNavigation}/>
+          <section className="flex h-screen w-screen" >
+            {sections[currentSection].component}
+          </section>
+        
     </div>
   )
 }

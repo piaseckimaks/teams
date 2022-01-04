@@ -37,6 +37,21 @@ async function getUserById( { id } ){
     return user;
 }
 
+async function getUserMessages( { id } ){
+    const messages = await prisma.messages.findMany({
+        where: {
+            senderId: id
+        },
+        include: {
+            Users_Messages_receiverIdToUsers: true,
+        }
+    });
+
+    console.log(messages);
+
+    return messages;
+}
+
 async function addUserToDB( user ){
 
     const userExist = await prisma.users.findUnique({
@@ -70,4 +85,4 @@ async function addUserToDB( user ){
 // addUserToDB({ firstname: 'Jimmy', lastname: 'Bimmy', email: 'jim2@bim.com', hashed_password: 'JI222', salt: '25'}).then(user=> console.log(user)).catch(err => console.log(err))
 // getUserByEmail({email: 'jim@bim.com'})
 
-export { getUserByEmail, getUserById, addUserToDB}
+export { getUserByEmail, getUserById, addUserToDB, getUserMessages}

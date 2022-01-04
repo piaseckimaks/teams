@@ -1,11 +1,7 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Form from '../components/Form/Form'
-import useSWR from 'swr'
+import Form from '../components/Form/'
 import Router from 'next/router'
 import Modal from '../components/Modal'
 import { useState } from 'react'
-import NavBar from '../components/NavBar'
 
 
 export default function Signin() {

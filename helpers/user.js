@@ -53,6 +53,12 @@ export async function findUser( {username: email} ) {
   
 }
 
+export async function getUserData( {username: email }){
+  const user = await getAllUserData({ email })
+
+  return user
+}
+
 // Compare the password of an already fetched user (using `findUser`) and compare the
 // password for a potential match
 export function validatePassword(user, inputPassword) {

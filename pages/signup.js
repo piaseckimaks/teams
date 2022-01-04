@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import Form from '../components/Form/Form'
+import Form from '../components/Form/'
 import Router from 'next/router'
-import NavBar from '../components/NavBar'
 import Modal from '../components/Modal'
 
 

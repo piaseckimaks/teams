@@ -22,14 +22,10 @@ export default nextConnect()
   .use(passport.initialize())
   .post(
     async function(req, res){
+      
       try{
-        console.log('req body from /auth/login:', req.body)
         const user = await authenticate('local', req, res)
-        console.log('user data from /auth/login',user)
-        const sessionData = {...user}
-        console.log('session data from /auth/login: ', sessionData)
-
-        await makeSession(res, sessionData)
+        await makeSession(res, user.id)
 
         res.status(200).send({done: true})
       }

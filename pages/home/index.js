@@ -42,7 +42,7 @@ export async function getServerSideProps({ req }){
   try {
     const session = await getSession(req)
     
-    if(session.hasOwnProperty('email')){
+    if(session){
       const { email: username } = session
       const user = (session && (await findUser({ username }))) ?? null  
     

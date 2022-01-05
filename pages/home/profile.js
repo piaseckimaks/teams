@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import ChatApp from '../../components/chat'
 import SideBar from '../../components/SideBar'
 import { getUserName } from '../../helpers/user'
 import { getSession } from '../../helpers/session'
 
-export default function Chat({ user }) {
-
+export default function Profile({user}) {
     return (
-    <div className='flex h-screen bg-base-300' >
-        <SideBar  />
-        <ChatApp user={user} />
-    </div>
+        <div className='flex h-screen bg-base-300' >
+            <SideBar  />
+            
+        </div>
     )
 }
 

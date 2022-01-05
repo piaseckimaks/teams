@@ -7,7 +7,7 @@ import NavBar from '../components/NavBar'
 import Image from 'next/image'
 import Logo from '../components/Logo'
 import { getSession } from '../helpers/session'
-import { findUser } from '../helpers/user'
+import { findUser, getUserName } from '../helpers/user'
 
 export default function Index({ user }) {
 
@@ -54,16 +54,13 @@ export async function getServerSideProps({ req }){
   try {
     const session = await getSession(req)
 
-    if(session.hasOwnProperty('email')){
-      const { email: username } = session
-      const user = (session && (await findUser({ username }))) ?? null  
+    if(session){
+      const user = (session && (await getUserName( session.id ))) ?? null
     
-      if(user)
-        return { props: { user: {id: user.id, firstname: user.firstname, lastname: user.lastname,} } }
-
+      return { props: { user: { ...user } } }
     }
 
-    return { props: {user: null}}
+    return { props: { user: null }}
 
   } catch (error) {
     console.error(error)

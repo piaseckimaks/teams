@@ -3,84 +3,8 @@ import ChatList from './ChatList'
 import ChatWindow from './ChatWindow'
 
 
-const persons = [
-    {
-        name: 'Janet le Crouix',
-        avatar: 'http://daisyui.com/tailwind-css-component-profile-1@56w.png',
-        lastMessage: 'When we can meet James ??',
-        datetime: '10:10'
-    },
-    {
-        name: 'Kim Campbell',
-        avatar: 'http://daisyui.com/tailwind-css-component-profile-3@56w.png',
-        lastMessage: 'I will not forgive you last evening!',
-        datetime: '4:00'
-    },
-    {
-        name: 'Tia Tanzani',
-        avatar: 'http://daisyui.com/tailwind-css-component-profile-5@56w.png',
-        lastMessage: 'Im for your orders agent 007',
-        datetime: 'Yesterday, 22:30'
-    },
-    {
-        name: 'Janet le Crouix',
-        avatar: 'http://daisyui.com/tailwind-css-component-profile-1@56w.png',
-        lastMessage: 'When we can meet James ??',
-        datetime: '10:10'
-    },
-    {
-        name: 'Kim Campbell',
-        avatar: 'http://daisyui.com/tailwind-css-component-profile-3@56w.png',
-        lastMessage: 'I will not forgive you last evening!',
-        datetime: '4:00'
-    },
-    {
-        name: 'Tia Tanzani',
-        avatar: 'http://daisyui.com/tailwind-css-component-profile-5@56w.png',
-        lastMessage: 'Im for your orders agent 007',
-        datetime: 'Yesterday, 22:30'
-    },
-    {
-        name: 'Janet le Crouix',
-        avatar: 'http://daisyui.com/tailwind-css-component-profile-1@56w.png',
-        lastMessage: 'When we can meet James ??',
-        datetime: '10:10'
-    },
-    {
-        name: 'Kim Campbell',
-        avatar: 'http://daisyui.com/tailwind-css-component-profile-3@56w.png',
-        lastMessage: 'I will not forgive you last evening!',
-        datetime: '4:00'
-    },
-    {
-        name: 'Tia Tanzani',
-        avatar: 'http://daisyui.com/tailwind-css-component-profile-5@56w.png',
-        lastMessage: 'Im for your orders agent 007',
-        datetime: 'Yesterday, 22:30'
-    },
-    {
-        name: 'Janet le Crouix',
-        avatar: 'http://daisyui.com/tailwind-css-component-profile-1@56w.png',
-        lastMessage: 'When we can meet James ??',
-        datetime: '10:10'
-    },
-    {
-        name: 'Kim Campbell',
-        avatar: 'http://daisyui.com/tailwind-css-component-profile-3@56w.png',
-        lastMessage: 'I will not forgive you last evening!',
-        datetime: '4:00'
-    },
-    {
-        name: 'Tia Tanzani',
-        avatar: 'http://daisyui.com/tailwind-css-component-profile-5@56w.png',
-        lastMessage: 'Im for your orders agent 007',
-        datetime: 'Yesterday, 22:30'
-    }
-]
-
-export default function Chat({ user }) {
+export default function Chat({ user, persons }) {
     const [ currentChat, setCurrentChat ] = useState(null)
-
 
     function handleCurrentChat(el){
         setCurrentChat(el)
@@ -100,11 +24,3 @@ export default function Chat({ user }) {
 
     )
 }
-{/* // <div className='flex h-screen bg-base-300'>
-    //     <SideBar />
-
-        
-
-    //   </div>
-
-    //  */}

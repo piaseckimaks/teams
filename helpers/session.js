@@ -4,20 +4,17 @@ import { MAX_AGE, setTokenCookie, getTokenCookie } from './cookies'
 
 const TOKEN_SECRET = process.env.TOKEN_SECRET
 
-export async function makeSession(res, sessionData){
+export async function makeSession(res, id){
     const dtCreated = Date.now()
-    const sessionObj = { ...sessionData, dtCreated, maxAge: MAX_AGE}
-    console.log('token',TOKEN_SECRET)
+    const sessionObj = { id, dtCreated, maxAge: MAX_AGE}
     const token = await Iron.seal(sessionObj, TOKEN_SECRET, Iron.defaults)
     setTokenCookie(res, token)
 }
 
 export async function getSession(req){
-    console.log('cookies from session:', req.cookies)
     const token = getTokenCookie(req)
-    console.log('token from /helpers/session:', token)
     if(!token) 
-        return {}
+        return null
 
     const sessionData = await Iron.unseal(token, TOKEN_SECRET, Iron.defaults)
     const dtExpires = sessionData.dtCreated + sessionData.maxAge * 1000
@@ -25,6 +22,5 @@ export async function getSession(req){
     if(Date.now() > dtExpires)
         throw new Error('Session expired!')
 
-    console.log('session data: ',sessionData)
     return sessionData
 }

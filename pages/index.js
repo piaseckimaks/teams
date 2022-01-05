@@ -1,13 +1,12 @@
 import { Fragment, useEffect } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon, AnnotationIcon, GlobeAltIcon, LightningBoltIcon, ScaleIcon, UserGroupIcon } from '@heroicons/react/solid'
-import { useUser } from '../hooks/useUser'
 import Link from 'next/dist/client/link'
 import NavBar from '../components/NavBar'
 import Image from 'next/image'
 import Logo from '../components/Logo'
 import { getSession } from '../helpers/session'
-import { findUser, getUserName } from '../helpers/user'
+import { getUserName } from '../helpers/user'
 
 export default function Index({ user }) {
 

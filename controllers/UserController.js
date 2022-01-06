@@ -8,9 +8,9 @@ export async function createUser({ firstname, lastname, email, password }) {
     //check if user already exist in DB
     const userExist = await prisma.users.findUnique({
         where: {
-            email: user.email
+          email: email
         }
-    });
+      });
 
     if(userExist)
         throw new Error('Email already registered!');
@@ -71,49 +71,7 @@ export async function getUserName( id ) {
   return user;
 }
 
-//get all messages for user
-export async function getUserMessages( id ){
-    
-  const messages = await prisma.messages.findMany({
-      where: {
-          senderId: id
-      },
-      include: {
-          Users_Messages_receiverIdToUsers: true,
-      }
-  });
 
-  return messages;
-}
-
-//get messages from certain conversation
-export async function getConversationMessages( senderId, receiverId ){
-
-  const messages = await prisma.messages.findMany({
-    where: {
-      senderId: senderId,
-      receiverId: receiverId
-    }
-  })
-
-  return messages
-}
-
-//get latest message from conversation
-export async function getLatestMsg(){
-
-  const message = await prisma.messages.findFirst({
-    where: {
-      senderId: senderId,
-      receiverId: receiverId 
-    },
-    orderBy: {
-      timestamp: 'desc'
-    }
-  })
-
-  return message
-}
 
 //validating user by password
 export function validatePassword(user, inputPassword) {

@@ -6,7 +6,7 @@ import NavBar from '../components/NavBar'
 import Image from 'next/image'
 import Logo from '../components/Logo'
 import { getSession } from '../helpers/session'
-import { getUserName } from '../helpers/user'
+import { getUserName } from '../controllers/UserController'
 
 export default function Index({ user }) {
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import ChatApp from '../../components/chat'
 import SideBar from '../../components/SideBar'
-import { getUserName } from '../../helpers/user'
+import { getUserName } from '../../controllers/UserController'
 import { getSession } from '../../helpers/session'
 
 export default function Chat({ user }) {
@@ -20,8 +20,8 @@ export async function getServerSideProps({ req }){
       const session = await getSession(req)
       
       if(session){
-        const user = (session && (await getUserName( session.id ))) ?? null
-      
+        const user = await getUserName( session.id )
+        
         
         return { props: {  user: { ...user }} }
   

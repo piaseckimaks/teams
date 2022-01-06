@@ -1,4 +1,4 @@
-import { createUser } from '../../../helpers/user'
+import { createUser } from '../../../controllers/UserController'
 
 export default async function signup(req, res) {
     console.log(req.body)

@@ -1,36 +1,26 @@
 
 import { useEffect, useState } from 'react'
 import { getSession } from '../../helpers/session'
-import { findUser } from '../../helpers/user'
 import Link from 'next/link'
 import SideBar from '../../components/SideBar'
 import NavBar from '../../components/NavBar'
 import Chat from '../../components/chat'
 import Dashboard from '../../components/Dashboard/Dashboard'
+import { getUserName } from '../../controllers/UserController'
 
 
 
 export default function Home({handleSubmit, user}) {
-  const [ currentSection, setCurrentSection ] = useState(0) 
+  const { firstname, lastname} = user 
 
-  const sections = [
-    {component: <Dashboard user={user}/>},
-    {component: <Chat user={user}/>},
-  
-  ]
-  
-  function handleNavigation(index){
-    setCurrentSection(index)
-    console.log(currentSection)
-  }
 
   return (
     <div className='flex h-screen bg-base-300' >
-        <SideBar handleNavigation={handleNavigation}/>
-          <section className="flex h-screen w-screen" >
-            {sections[currentSection].component}
-          </section>
-        
+        <SideBar />
+        <div className='w-full h-full p-16'>
+        <span className='text-2xl text-lime-100 font-semibold'>Welcome,</span><span className='text-4xl font-bold text-success'> {firstname}!</span>
+
+        </div>
     </div>
   )
 }
@@ -43,11 +33,11 @@ export async function getServerSideProps({ req }){
     const session = await getSession(req)
     
     if(session){
-      const { email: username } = session
-      const user = (session && (await findUser({ username }))) ?? null  
+      const { id } = session
+      const user = (session && (await getUserName( id))) ?? null  
     
       if(user)
-        return { props: { user: {id: user.id, firstname: user.firstname, lastname: user.lastname,} } }
+        return { props: { user: {firstname: user.firstname, lastname: user.lastname,} } }
 
     }
 

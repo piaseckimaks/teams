@@ -1,5 +1,5 @@
-import crypto from 'crypto'
-import prisma from '../database'
+import crypto from 'crypto';
+import prisma from '../database';
 
 export async function createUser({ firstname, lastname, email, password }) {
   
@@ -17,10 +17,10 @@ export async function createUser({ firstname, lastname, email, password }) {
 
     
     //making hashed password and salt to store in DB
-    const salt = crypto.randomBytes(16).toString('hex')
+    const salt = crypto.randomBytes(16).toString('hex');
     const hashed_password = crypto
       .pbkdf2Sync(password, salt, 1000, 64, 'sha512')
-      .toString('hex')
+      .toString('hex');
 
     //preparing user object from made propertis
     const user = {
@@ -29,22 +29,23 @@ export async function createUser({ firstname, lastname, email, password }) {
       email,
       hashed_password,
       salt,
-    }
+    };
   
     //creating user in DB
     const newUser = await prisma.users.create({
         data: { ...user }
-    })
+    });
   
   return newUser
   }
   catch(err)
   {
     throw err
-  }
-}
+  };
+};
 
 export async function validateUser( username ){
+  
   const user = await prisma.users.findUnique({
       where: {
           email: username
@@ -53,11 +54,11 @@ export async function validateUser( username ){
 
 
   return user;
-}
+};
 
 // lookup for the user in DB by id
 export async function getUserName( id ) {
-
+  
   const user = await prisma.users.findUnique({
       where: {
           id: id
@@ -69,7 +70,7 @@ export async function getUserName( id ) {
   });
 
   return user;
-}
+};
 
 
 
@@ -78,9 +79,21 @@ export function validatePassword(user, inputPassword) {
   
   const inputHash = crypto
     .pbkdf2Sync(inputPassword, user.salt, 1000, 64, 'sha512')
-    .toString('hex')
+    .toString('hex');
 
-  const passwordsMatch = user.hashed_password === inputHash
+  const passwordsMatch = user.hashed_password == inputHash;
   
   return passwordsMatch ? true : false;
+}
+
+export async function getAllUsers(){
+  const users = await prisma.users.findMany({
+    select: {
+      id: true,
+      firstname: true,
+      lastname: true,
+    }
+  });
+
+  return users;
 }

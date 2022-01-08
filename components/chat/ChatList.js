@@ -1,15 +1,30 @@
-import React, { useRef, useState } from 'react'
-import ChatListItem from './ChatListItem'
+import React, { useRef, useState } from 'react';
+import ChatListItem from './ChatListItem';
 
 
-export default function ChatList({ handleCurrentChat, user }) {
-    const { firstname, lastname, avatar } = user
-    const persons = []
-    const uploadAvatar = useRef(null)
+export default function ChatList({ handleCurrentChat, user, possibleFriends }) {
+    const [currentList, setCurrentList] = useState(0);
+    const { firstname, lastname, avatar } = user;
+    const persons = [];
+    const uploadAvatar = useRef(null);
 
     function handleUploadAvatar(){
         uploadAvatar.current.click()
-    }
+    };
+
+    function handleList(e, id){
+        const element = e.currentTarget;
+
+        setCurrentList(id);
+
+        if(element.nextSibling)
+            element.nextSibling.classList.remove('bg-success', 'text-neutral');
+        if(element.previousSibling)
+            element.previousSibling.classList.remove('bg-success', 'text-neutral');
+        
+        if( !Object.values(element.classList).includes('bg-success') && !Object.values(element.classList).includes('text-neutral'))
+            element.classList.add('bg-success', 'text-neutral');
+    };
 
     return (
         <div className='bg-base-200 w-1/4 h-full overflow-auto'>
@@ -34,9 +49,18 @@ export default function ChatList({ handleCurrentChat, user }) {
                                 </ul>
                         </div>
                         <h3 className='text-center capitalize text-xl font-bold mb-2'>{firstname} {lastname}</h3>
+                        <div className='tabs tabs-boxed bg-base-300 grid grid-cols-2 rounded-none'>
+                            <a className='tab rounded-none uppercase bg-success text-neutral' onClick={(e)=>handleList(e, 0)}>firends</a>
+                            <a className='tab rounded-none uppercase' onClick={(e)=>handleList(e, 1)}>explore</a>
+                        </div>
                         <ul className="menu py-1 w-full shadow-lg bg-base-300 overflow-auto">
-
+                        
                             {
+                                currentList ?
+                                possibleFriends.map((el, i)=> (
+                                    <ChatListItem key={i} el={el} handleCurrentChat={handleCurrentChat} />
+                                ))
+                                :
                                 persons.map((el, i)=> (
                                     <ChatListItem key={i} el={el} handleCurrentChat={handleCurrentChat} />
                                 ))

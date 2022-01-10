@@ -10,18 +10,17 @@
   
   /* Track */
   ::-webkit-scrollbar-track {
-    border-radius: 100vh;
-    @apply bg-base-200
+    @apply bg-base-300
   }
   
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    @apply bg-accent
+    @apply bg-success
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-accent-focus
+    @apply bg-success
   }
 
   @layer components{

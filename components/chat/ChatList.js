@@ -1,16 +1,44 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ChatListItem from './ChatListItem';
 
 
 export default function ChatList({ handleCurrentChat, user, possibleFriends }) {
     const [currentList, setCurrentList] = useState(0);
     const { firstname, lastname, avatar } = user;
-    const persons = [];
+    const [friends, setFriends] = useState([]);
     const uploadAvatar = useRef(null);
 
     function handleUploadAvatar(){
         uploadAvatar.current.click()
     };
+
+    async function getFriends({ id }){
+        const friends = await fetch(`/api/get-friends/${id}`);
+
+        setFriends(friends);
+    }
+
+
+    useEffect(() => getFriends(user) )
+
+    async function handleInvite(el){
+        
+        const response = await fetch('/api/add-friend',
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(el)
+            });
+
+        if(response.code === 201){
+            const friends = await fetch('/api/get-friends');
+
+            setFriends(friends);
+        }
+        
+    }
 
     function handleList(e, id){
         const element = e.currentTarget;
@@ -27,7 +55,7 @@ export default function ChatList({ handleCurrentChat, user, possibleFriends }) {
     };
 
     return (
-        <div className='bg-base-200 w-1/4 h-full overflow-auto'>
+        <div className='bg-base-200 w-1/4 h-full overflow-hidden'>
 
                         <div className="avatar my-4 w-full dropdown">
                             <div tabIndex="0" className="w-24 h-24 mask mask-hexagon mx-auto cursor-pointer "  >
@@ -53,7 +81,7 @@ export default function ChatList({ handleCurrentChat, user, possibleFriends }) {
                             <a className='tab rounded-none uppercase bg-success text-neutral' onClick={(e)=>handleList(e, 0)}>firends</a>
                             <a className='tab rounded-none uppercase' onClick={(e)=>handleList(e, 1)}>explore</a>
                         </div>
-                        <ul className="menu py-1 w-full shadow-lg bg-base-300 overflow-auto">
+                        <ul className="menu py-1 w-full shadow-lg bg-base-300 h-3/4 overflow-auto">
                         
                             {
                                 currentList ?
@@ -61,8 +89,8 @@ export default function ChatList({ handleCurrentChat, user, possibleFriends }) {
                                     <ChatListItem key={i} el={el} handleCurrentChat={handleCurrentChat} />
                                 ))
                                 :
-                                persons.map((el, i)=> (
-                                    <ChatListItem key={i} el={el} handleCurrentChat={handleCurrentChat} />
+                                friends.map((el, i)=> (
+                                    <ChatListItem key={i} el={el} handleCurrentChat={handleCurrentChat} friendsList/>
                                 ))
                             }
                            

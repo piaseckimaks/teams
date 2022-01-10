@@ -7,43 +7,56 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
+model User {
   id                                  Int        @id @default(autoincrement()) @db.UnsignedInt
   firstname                           String     @db.VarChar(30)
   lastname                            String     @db.VarChar(30)
   email                               String     @unique(map: "email") @db.VarChar(50)
-  hashed_password                     String     @db.VarChar(128)
-  salt                                String     @db.VarChar(128)
   reg_date                            DateTime?  @default(now()) @db.Timestamp(0)
-  avatar                              Avatars?
-  friends                             Friends[]
-  Messages_Messages_receiverIdToUsers Messages[] @relation("Messages_receiverIdToUsers")
-  Messages_Messages_senderIdToUsers   Messages[] @relation("Messages_senderIdToUsers")
+  password                            Password
+  avatar                              Avatar?
+  friends                             Friend[]
+  ReceivedMessages                    Message[]  @relation("Messages_receiverIdToUsers")
+  SentMessages                        Message[]  @relation("Messages_senderIdToUsers")
 }
 
-model Messages {
+model Password{
+  id          Int       @id @default(autoincrement()) @db.UnsignedInt
+  password    String    @db.VarChar(128)
+  salt        String    @db.VarChar(128)
+  user        User      @relation(fields: [userId], references: [id])
+  userId      Int       @db.UnsignedInt
+}
+
+model Email{
+
+}
+
+model Message {
   id                               Int    @id @default(autoincrement()) @db.UnsignedInt
   timestamp                        DateTime
   content                          String @db.Text
   senderId                         Int    @db.UnsignedInt
   receiverId                       Int    @db.UnsignedInt
-  Users_Messages_receiverIdToUsers Users  @relation("Messages_receiverIdToUsers", fields: [receiverId], references: [id])
-  Users_Messages_senderIdToUsers   Users  @relation("Messages_senderIdToUsers", fields: [senderId], references: [id])
+  Users_Messages_receiverIdToUsers User   @relation("Messages_receiverIdToUsers", fields: [receiverId], references: [id])
+  Users_Messages_senderIdToUsers   User   @relation("Messages_senderIdToUsers", fields: [senderId], references: [id])
 
   @@index([receiverId], map: "Messages_receiverId_fkey")
   @@index([senderId], map: "Messages_senderId_fkey")
 }
 
-model Avatars {
+model Avatar {
     id      Int     @id @default(autoincrement()) @db.UnsignedInt
     avatar  String  @db.Text
-    user    Users   @relation(fields: [userId], references: [id])
+    user    User    @relation(fields: [userId], references: [id])
     userId  Int     @db.UnsignedInt
 }
 
-model Friends {
+model Friend {
     id        Int     @id @default(autoincrement()) @db.UnsignedInt
-    friend    Users   @relation(fields: [friendId], references: [id])
+    friend    User    @relation(name:"friendId",fields: [friendId], references: [id])
     friendId  Int     @db.UnsignedInt
+    user      User    @relation(name: "userId",fields: [userId], references: [id])
+    usersId   Int     @db.UnsignedInt
 }
 

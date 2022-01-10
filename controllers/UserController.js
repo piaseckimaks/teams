@@ -97,3 +97,11 @@ export async function getAllUsers(){
 
   return users;
 }
+
+export async function getUsersFriends(){
+  const friends = await prisma.friends.findMany({
+    where: {
+      
+    }
+  })
+}

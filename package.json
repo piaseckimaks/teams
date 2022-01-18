@@ -2,7 +2,7 @@
   "name": "teams",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 8000",
     "build": " next build",
     "start": "next start",
     "lint": "next lint"
@@ -12,6 +12,7 @@
     "@headlessui/react": "^1.4.2",
     "@heroicons/react": "^1.0.5",
     "@prisma/client": "^3.7.0",
+    "@tailwindcss/forms": "^0.4.0",
     "autoprefixer": "^10.4.0",
     "bootstrap": "^5.1.3",
     "cookie": "^0.4.1",
@@ -30,6 +31,7 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@types/react": "^17.0.38",
     "eslint": "7.32.0",
     "eslint-config-next": "12.0.2",
     "prisma": "^3.7.0"

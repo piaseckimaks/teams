@@ -18,27 +18,9 @@ export default function ChatList({ handleCurrentChat, user, possibleFriends }) {
         setFriends(friends);
     }
 
+    useEffect(() => console.log(user) )
 
-    useEffect(() => getFriends(user) )
-
-    async function handleInvite(el){
-        
-        const response = await fetch('/api/add-friend',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(el)
-            });
-
-        if(response.code === 201){
-            const friends = await fetch('/api/get-friends');
-
-            setFriends(friends);
-        }
-        
-    }
+    
 
     function handleList(e, id){
         const element = e.currentTarget;
@@ -86,11 +68,11 @@ export default function ChatList({ handleCurrentChat, user, possibleFriends }) {
                             {
                                 currentList ?
                                 possibleFriends.map((el, i)=> (
-                                    <ChatListItem key={i} el={el} handleCurrentChat={handleCurrentChat} />
+                                    <ChatListItem key={i} el={el} handleCurrentChat={handleCurrentChat} conversationList/>
                                 ))
                                 :
                                 friends.map((el, i)=> (
-                                    <ChatListItem key={i} el={el} handleCurrentChat={handleCurrentChat} friendsList/>
+                                    <ChatListItem key={i} el={el} addNewFriend={(el) => addNewFriend(user, el)} />
                                 ))
                             }
                            
@@ -98,4 +80,31 @@ export default function ChatList({ handleCurrentChat, user, possibleFriends }) {
 
                     </div>
     )
+}
+
+
+async function addNewFriend(user, newFriend){
+        
+    const { id: friendId } = newFriend;
+    const body = {
+        userId: user.id,
+        friendId: friendId
+    }
+
+    console.log(body)
+
+    // const response = await fetch(`/api/add-friend`,{
+    //     method: 'POST',
+    //     headers: { 
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(body)
+    // });
+
+    // if(response.code === 201){
+    //     const friends = await fetch('/api/get-friends');
+
+    //     setFriends(friends);
+    // }
+    
 }

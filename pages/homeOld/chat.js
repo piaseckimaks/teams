@@ -20,10 +20,11 @@ export async function getServerSideProps({ req }){
       const session = await getSession(req)
       
       if(session){
-        const user = await getUserName( session.id )
+        const { id }= session;
+        const user = await getUserName( session.id );
         const possibleFriends = await getAllUsers();
         
-        return { props: {  user: { ...user }, possibleFriends: possibleFriends } }
+        return { props: {  user: { id, ...user }, possibleFriends: possibleFriends } }
   
       }
   

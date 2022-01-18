@@ -6,7 +6,7 @@ export async function createUser({ firstname, lastname, email, password }) {
   try
   {
     //check if user already exist in DB
-    const userExist = await prisma.users.findUnique({
+    const userExist = await prisma.user.findUnique({
         where: {
           email: email
         }
@@ -27,12 +27,16 @@ export async function createUser({ firstname, lastname, email, password }) {
       firstname,
       lastname,
       email,
-      hashed_password,
-      salt,
+      password: {
+        create: {
+          password: hashed_password,
+          salt,
+        }
+      }
     };
   
     //creating user in DB
-    const newUser = await prisma.users.create({
+    const newUser = await prisma.user.create({
         data: { ...user }
     });
   
@@ -46,20 +50,23 @@ export async function createUser({ firstname, lastname, email, password }) {
 
 export async function validateUser( username ){
   
-  const user = await prisma.users.findUnique({
+  const user = await prisma.user.findUnique({
       where: {
-          email: username
+          email: username 
+      },
+      include: {
+        password: true
       }
   });
 
-
+  console.log(user)
   return user;
 };
 
 // lookup for the user in DB by id
 export async function getUserName( id ) {
   
-  const user = await prisma.users.findUnique({
+  const user = await prisma.user.findUnique({
       where: {
           id: id
       },
@@ -78,16 +85,16 @@ export async function getUserName( id ) {
 export function validatePassword(user, inputPassword) {
   
   const inputHash = crypto
-    .pbkdf2Sync(inputPassword, user.salt, 1000, 64, 'sha512')
+    .pbkdf2Sync(inputPassword, user.password.salt, 1000, 64, 'sha512')
     .toString('hex');
 
-  const passwordsMatch = user.hashed_password == inputHash;
+  const passwordsMatch = user.password.password == inputHash;
   
   return passwordsMatch ? true : false;
 }
 
 export async function getAllUsers(){
-  const users = await prisma.users.findMany({
+  const users = await prisma.user.findMany({
     select: {
       id: true,
       firstname: true,

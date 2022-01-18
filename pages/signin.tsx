@@ -1,29 +1,23 @@
-import React, { useState } from 'react'
 import Router from 'next/router'
-import Dialog from '../components/DialogWindow'
 import Link from 'next/link'
+import { useEffect, useRef, useState } from 'react'
+import { ExclamationCircleIcon } from '@heroicons/react/solid'
+
+const darkWP = 'https://images.pexels.com/photos/1738986/pexels-photo-1738986.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'//'https://images.pexels.com/photos/247676/pexels-photo-247676.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
+const lightWP = 'https://images.pexels.com/photos/4916259/pexels-photo-4916259.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'//'https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80'
 
 
-const darkWP = 'https://images.pexels.com/photos/2388892/pexels-photo-2388892.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'//'https://images.pexels.com/photos/247676/pexels-photo-247676.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
-const lightWP = 'https://images.pexels.com/photos/1029615/pexels-photo-1029615.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'//'https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80'
+type SigninProps = {
+  darkMode: Boolean,
+  toggleDialogWindow: VoidFunction
+}
 
-
-export default function Signup({ darkMode }) {
-  const [ dialogStatus, setDialogStatus ] = useState(false);
-  const [ dialogTitle, setDialogTitle ] = useState(null);
-  const [ dialogDescription, setDialogDescription ] = useState(null);
-  const [ firstname, setFirstname ] = useState(null);
-  const [ lastname, setLastname] = useState(null);
-  const [ emailInput, setEmailInput ] = useState(null);
-  const [ passwordInput, setPasswordInput ] = useState(null);
-  const [ rePasswordInput, setRePasswordInput ] = useState(null);
-
-
-  function toggleDialog(title, description){
-    setDialogTitle(title);
-    setDialogDescription(description);
-    setDialogStatus(true);
-  } 
+export default function Signin( { darkMode, toggleDialogWindow }: SigninProps ): JSX.Element {
+  const [ dialogStatus, setDialogStatus ] = useState(false)
+  const [ dialogTitle, setDialogTitle ] = useState(null)
+  const [ dialogDescription, setDialogDescription ] = useState(null)
+  const [ emailInput, setEmailInput ] = useState(null)
+  const [ passwordInput, setPasswordInput ] = useState(null)
 
   function handleEmailInput(e){
     setDialogTitle(null);
@@ -31,26 +25,13 @@ export default function Signup({ darkMode }) {
     setEmailInput(e.currentTarget.value);
   }
 
-  function handleFirstnameInput(e){
-    setDialogTitle(null);
-    setDialogDescription(null);
-    setFristnameInput(e.currentTarget.value);
-  }
-
-  function handleLastnameInput(e){
-    setDialogTitle(null);
-    setDialogDescription(null);
-    setLastnameInput(e.currentTarget.value);
+  function toggleDialog(title, description){
+    setDialogTitle(title);
+    setDialogDescription(description)
+    setDialogStatus(true);
   }
 
   function handlePasswordInput(e){
-    setDialogTitle(null);
-    setDialogDescription(null);
-    setPasswordInput(e.currentTarget.value);
-  }
-
-  function handleRePasswordInput(e){
-    setDialogTitle(null);
     setDialogDescription(null);
     setPasswordInput(e.currentTarget.value);
   }
@@ -62,68 +43,56 @@ export default function Signup({ darkMode }) {
     partyId === 1 && (partyName = 'Twitter');
     partyId === 2 && (partyName = 'GitHub');
 
-    toggleDialog('Info', `${partyName} authentication comming soon!`)
+    toggleDialogWindow()
 
   }
 
-    async function handleRegistration(e){
-        e.preventDefault()
-    
-        console.log(e.currentTarget.password.value)
-    
-        const body = {
-          firstname: e.currentTarget.fname.value,
-          lastname: e.currentTarget.lname.value,
-          email: e.currentTarget.email.value,
-          password: e.currentTarget.password.value
-        }
-    
-        console.log(body)
-    
-        try{
-          console.log('trying to register user...')
-          const response = await fetch(
-            '/api/auth/register',
-            {
-              method: 'POST',
-              headers: {'Content-Type': 'application/json'},
-              body: JSON.stringify(body)
-            }
-          )
-          
-          const res = await response.json()
+  async function handleLogin(e){
+    e.preventDefault()
 
-          if(response.status === 200){
-            console.log('fetched')
-            
-            Router.push('/signin')
-          }
-          else{
-             
-            setErrorMessage(res.errMsg)
-            
-            toggleModal()
-          }
-        }
-        catch(error){
-          console.log(error)
-        } 
+    if(!emailInput){
+      toggleDialog('Error', 'Fill in email address!');
+      return;
+    }
+    
+    if(!passwordInput){
+      toggleDialog('Error', 'Fill in password!');
+      return;
+    }
+
+    const body = {
+      username: e.currentTarget.email.value,
+      password: e.currentTarget.password.value,
+    }
+
+    const response = await fetch(
+      '/api/auth/login',
+      {
+        method: 'POST',
+        headers: { 'Content-Type' : 'application/json' },
+        body: JSON.stringify(body),
       }
+    )
 
-    return (
-      <>
+    if(response.status === 200){
+      console.log('fetched')
+      Router.push('/home')
+
+      return;
+    }
+      
+    const errMsg = await response.json()
+    setDialogTitle('Error');
+    setDialogDescription( errMsg.error )
+    setDialogStatus(true);
+  }
+
+
+  return (
+    <>
       <div className="min-h-full flex">
-
-        <div className="hidden lg:block relative w-0 flex-1">
-          <img
-            className="absolute inset-0 h-full w-full object-cover"
-            src={darkMode ? darkWP : lightWP}
-            alt=""
-          />
-        </div>
-
         <div className="flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24 dark:bg-gray-900">
-          <div className="mx-auto w-full max-w-sm lg:w-96 ">
+          <div className="mx-auto w-full max-w-sm lg:w-96">
             <div>
               {/* <h1 className='text-6xl font-bold text-blue-400 capitalize text-center'>prisma webmin</h1> */}
               <img
@@ -134,9 +103,9 @@ export default function Signup({ darkMode }) {
               <h2 className="mt-6 text-3xl font-extrabold text-gray-900 dark:text-blue-200">Sign in to your account</h2>
               <p className="mt-2 text-sm text-gray-600 dark:text-blue-200">
                 Or{' '}
-                <Link href="/signin">
+                <Link href="/signup">
                   <a className="font-medium text-indigo-500 hover:text-indigo-400">
-                    sign in to your account
+                    create account
                   </a>
                 </Link>
               </p>
@@ -206,38 +175,7 @@ export default function Signup({ darkMode }) {
               </div>
 
               <div className="mt-6">
-                <form action="#" onSubmit={handleRegistration} className="space-y-6">
-
-                <div>
-                    <label htmlFor="firstname" className="block text-sm font-medium text-gray-700 dark:text-blue-200">
-                      Firstname
-                    </label>
-                    <div className="mt-1 relative rounded-md shadow-sm">
-                      <input
-                        id="firstname"
-                        name="firstname"
-                        autoComplete="firstname"
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-blue-300 dark:text-blue-200"
-                        onChange={handleFirstnameInput}
-                      />
-                    </div>
-                  </div>
-
-                <div>
-                    <label htmlFor="lastname" className="block text-sm font-medium text-gray-700 dark:text-blue-200">
-                      Lastname
-                    </label>
-                    <div className="mt-1 relative rounded-md shadow-sm">
-                      <input
-                        id="lastname"
-                        name="lastname"
-                        autoComplete="lastname"
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-blue-300 dark:text-blue-200"
-                        onChange={handleLastnameInput}
-                      />
-                    </div>
-                  </div>
-
+                <form action="#" onSubmit={handleLogin} className="space-y-6">
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-blue-200">
                       Email address
@@ -264,37 +202,41 @@ export default function Signup({ darkMode }) {
                         id="password"
                         name="password"
                         type="password"
+                        autoComplete="current-password"
                         className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-blue-300 dark:text-blue-200"
                         onChange={handlePasswordInput}
                       />
                     </div>
                   </div>
 
-
-                  <div className="space-y-1">
-                    <label htmlFor="re-password" className="block text-sm font-medium text-gray-700 dark:text-blue-200">
-                      Repeat password
-                    </label>
-                    <div className="mt-1 relative rounded-md shadow-sm">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
                       <input
-                        id="re-password"
-                        name="re-password"
-                        type="re-password"
-                        className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-900 dark:border-blue-300 dark:text-blue-200"
-                        onChange={handleRePasswordInput}
+                        id="remember-me"
+                        name="remember-me"
+                        type="checkbox"
+                        className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded dark:bg-gray-900 dark:border-blue-300 cursor-pointer"
                       />
+                      <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900 dark:text-blue-200">
+                        Remember me
+                      </label>
+                    </div>
+
+                    <div className="text-sm">
+                      <a href="#" className="font-medium text-indigo-500 hover:text-indigo-400">
+                        Forgot your password?
+                      </a>
                     </div>
                   </div>
 
-                  <div className='text-white dark:text-gray-900'>
-                    label 
+                  <div>
                     <button
                       type="submit"
-                      className={`w-full flex justify-center py-2 px-4  border border-transparent rounded-md shadow-sm text-sm font-medium text-white uppercase
+                      className={`w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white uppercase
                         bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 
                         dark:bg-blue-200 hover:dark:bg-blue-300 focus:dark:outline-none focus:dark:ring-2 focus:dark:ring-offset-2 focus:dark:ring-blue-100 dark:text-gray-700`}
                     >
-                      Sign up
+                      Sign in
                     </button>
                   </div>
                 </form>
@@ -302,9 +244,19 @@ export default function Signup({ darkMode }) {
             </div>
           </div>
         </div>
-        
+        <div className="hidden lg:block relative w-0 flex-1">
+          <img
+            className="absolute inset-0 h-full w-full object-cover"
+            src={darkMode ? darkWP : lightWP}
+            alt=""
+          />
+        </div>
       </div>
-      <Dialog open={dialogStatus} setOpen={setDialogStatus} title={dialogTitle} description={dialogDescription} />
-    </>  
-    )
+    </>
+  )
+
 }
+
+
+
+

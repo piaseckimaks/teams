@@ -43,3 +43,12 @@ export async function getUserMessages( id ){
   
     return message
   }
+
+export async function addNewFriend(id){
+  const newFriend = await prisma.friend.create({
+    data: {
+      friendId: id,
+      
+    }
+  })
+}

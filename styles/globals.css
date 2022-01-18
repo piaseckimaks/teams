@@ -2,29 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-/* width */
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    @apply bg-base-300
-  }
-  
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    @apply bg-success
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-success
-  }
 
-  @layer components{
-    .form-custom{
-      @apply absolute top-0 left-0 py-2 text-neutral-content h-full w-full flex flex-col justify-center items-center md:flex-row md:justify-center md:items-center  overflow-auto;
+@layer base{
+    html, body{
+        @apply h-full;
     }
-  }
+    
+    #__next{
+        @apply h-full;
+    }
+
+    .input{
+        
+    }
+}

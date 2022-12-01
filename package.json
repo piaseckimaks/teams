@@ -17,7 +17,7 @@
     "cookie": "^0.4.1",
     "daisyui": "^1.16.2",
     "mysql2": "^2.3.3-rc.0",
-    "next": "12.0.2",
+    "next": "^13.0.0",
     "next-auth": "^3.29.0",
     "next-connect": "^0.11.0",
     "passport": "^0.5.0",

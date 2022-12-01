@@ -11,7 +11,7 @@ const fetcher = (url) =>
 
 export function useUser({ redirectTo, redirectIfFound } = {}) {
   const { data, error } = useSWR('/api/auth/user', fetcher)
-  const user = data?.user
+  let user = data?.user
   const finished = Boolean(data)
   const hasUser = Boolean(user)
 
